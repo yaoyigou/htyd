@@ -18,6 +18,7 @@ class IndexController extends Controller
 
     public function index()
     {
+        tips('测试');
         return view('index', $this->assign);
     }
 }

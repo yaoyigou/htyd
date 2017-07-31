@@ -10,10 +10,8 @@
     <link rel="shortcut icon" href="{{path('images/favicon.ico')}}"/>
     <link rel="icon" href="{{path('images/animated_favicon.gif')}}" type="image/gif"/>
     <link rel="alternate" type="application/rss+xml" title="RSS|{{$page_title or '系统提示'}}" href="feed.php"/>
-    <link href="{{path('css/base.css')}}" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="{{path('/js/jquery.min.js')}}"></script>
+    <link href="{{path('css/app.css')}}" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="{{path('layer/layer.js')}}"></script>
-    <script src="{{path('new/js/jquery.singlePageNav.min.js')}}" type="text/javascript" charset="utf-8"></script>
     @yield('css')
     <script type="text/javascript">
         $.ajaxSetup({

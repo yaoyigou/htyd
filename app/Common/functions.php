@@ -24,3 +24,12 @@ if (!function_exists('path')) {
 
     }
 }
+
+
+if (!function_exists('tips')) {
+    function tips($message = '', int $errors = 0, array $params = [], array $headers = [])
+    {
+        $params['errors'] = $errors;
+        throw new \App\Exceptions\TipsException($message, $params, $headers);
+    }
+}
