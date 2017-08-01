@@ -17,3 +17,6 @@ Route::get('/', 'IndexController@index')->name('index');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('cart','CartController');
+Route::resource('order','OrderController');

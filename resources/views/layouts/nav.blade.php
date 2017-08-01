@@ -38,7 +38,7 @@
                         <div class="xiyao-box">
                             <div class="fn_clear content-xiyao">
                                 @foreach($v->child as $v1)
-                                    <a href="#" target="_blank" title="{{$v->cat_name}}">{{$v->cat_name}}</a>
+                                    <a href="#" target="_blank" title="{{$v1->cat_name}}">{{$v1->cat_name}}</a>
                                 @endforeach
                             </div>
                         </div>

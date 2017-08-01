@@ -24,7 +24,7 @@
                 </div>
             </a>
 
-            <a href="{{route('')}}">
+            <a href="{{route('order.index')}}">
                 <div class="dingdan" style="float: right;">
                     <img src="{{path('images/order.png')}}"/> 订单查询
                 </div>

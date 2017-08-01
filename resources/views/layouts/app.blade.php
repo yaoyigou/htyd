@@ -10,7 +10,12 @@
     <link rel="shortcut icon" href="{{path('images/favicon.ico')}}"/>
     <link rel="icon" href="{{path('images/animated_favicon.gif')}}" type="image/gif"/>
     <link rel="alternate" type="application/rss+xml" title="RSS|{{$page_title or '系统提示'}}" href="feed.php"/>
-    <link href="{{path('css/app.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{path('css/base.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{path('css/common/header.css')}}" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="{{path('js/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{path('js/jquery.singlePageNav.min.js')}}"></script>
+    <script type="text/javascript" src="{{path('js/common.js')}}"></script>
+    <script type="text/javascript" src="{{path('js/keywordsSearch.js')}}"></script>
     <script type="text/javascript" src="{{path('layer/layer.js')}}"></script>
     @yield('css')
     <script type="text/javascript">
