@@ -3,8 +3,13 @@
     <link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{path('css/index/lunbo.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{path('css/index/main.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{path('css/common/fixed_search.css')}}" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="{{path('js/index/index.js')}}"></script>
-    <script type="text/javascript" src="{{path('js/index/new-lunbo.js')}}"></script>
+    <style>
+        .category-menu {
+            display: block;
+        }
+    </style>
 @endsection
 @section('content')
     @include('layouts.header')
@@ -67,16 +72,16 @@
                         <div class="shaixuan">
                             @foreach($v->child as $v1)
                                 <li @if($loop->first) class="on" @endif>{{$v1->cat_name}}@if(!$loop->last)<img
-                                            src="{{path('images/shu.jpg')}}"/>@endif</li>
+                                            src="{{path('images/index/shu.jpg')}}"/>@endif</li>
                             @endforeach
                         </div>
-                        <img src="{{path('images/title_left.jpg')}}"/><span>{{$k+1}}F</span><img
-                                src="{{path('images/title_right.jpg')}}"/><span>{{$v->cat_name}}</span>
+                        <img src="{{path('images/index/title_left.jpg')}}"/><span>{{$k+1}}F</span><img
+                                src="{{path('images/index/title_right.jpg')}}"/><span>{{$v->cat_name}}</span>
                     </div>
                     <div class="wrapper1">
                         <div id="focus{{$k+1}}" class="focus">
                             <ul style="height: 400px;">
-                                @foreach($ad126 as $v1)
+                                @foreach($v->ad1 as $v1)
                                     <li>
                                         <a target="_blank" href="{{$v1->ad_link}}"><img src="{{$v1->ad_code}}"/></a>
                                     </li>
@@ -85,7 +90,7 @@
                         </div>
                         <div class="img_box">
                             <ul>
-                                @foreach($ad126 as $v1)
+                                @foreach($v->ad2 as $v1)
                                     <li>
                                         <a target="_blank" href="{{$v1->ad_link}}"><img src="{{$v1->ad_code}}"/></a>
                                     </li>
@@ -95,17 +100,19 @@
                     </div>
 
                     <ul class="Allul">
-                        @foreach($ad126 as $v1)
+                        @foreach($v->ad3 as $v1)
                             <li>
                                 <a target="_blank" href="{{$v1->ad_link}}"><img src="{{$v1->ad_code}}"/></a>
                             </li>
                         @endforeach
                     </ul>
-                    <div class="content_bot">
-                        @foreach($ad126 as $v1)
-                            <a href="{{$v1->ad_link}}"><img src="{{$v1->ad_code}}"/></a>
-                        @endforeach
-                    </div>
+                    @if(count($v->ad4)>0)
+                        <div class="content_bot">
+                            @foreach($v->ad4 as $v1)
+                                <a href="{{$v1->ad_link}}"><img src="{{$v1->ad_code}}"/></a>
+                            @endforeach
+                        </div>
+                    @endif
                 </div>
             @endforeach
         </div>
@@ -114,4 +121,9 @@
         <!--尾部-->
         @include('layouts.footer')
     </div>
+    @include('layouts.fix_search')
+    @include('layouts.fix_right')
+@endsection
+@section('js')
+    <script type="text/javascript" src="{{path('js/index/new-lunbo.js')}}"></script>
 @endsection

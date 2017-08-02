@@ -435,35 +435,6 @@ function SetRemainTime() {
 
 // 左侧产品鼠标hover事件
 $(function () {
-    $('.category-list li').hover(function () {
-        $(this).children('p').css({
-            'background': '#fff',
-            'width': '200px',
-            'margin-left': '10px'
-        })
-        $(this).children().children('.img_box').children('.leftimg').hide();
-        $(this).children().children('.img_box').children('.leftimg-1').show();
-        $(this).children().children('a').children().css({
-            'color': '#316aef',
-            'font-size': '18px'
-        });
-    }, function () {
-        $(this).children('p').css({
-            'background': 'initial',
-            'width': '190px'
-        })
-        $(this).children().children('.img_box').children('.leftimg').show();
-        $(this).children().children('.img_box').children('.leftimg-1').hide();
-        $(this).children().children('a').children().css({
-            'color': '#fff',
-            'font-size': '16px'
-        })
-    })
-
-    $(".to_top").click(function () {
-        $('body,html').animate({scrollTop: 0}, 400);
-        return false;
-    });
 //顶部关闭广告
     $(".close-btns").click(function () {
 

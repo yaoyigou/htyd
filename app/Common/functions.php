@@ -6,6 +6,7 @@
  * Time: 13:21
  */
 use App\Models\ShopConfig;
+use App\Models\OrderInfo;
 
 
 if (!function_exists('shop_config')) {
@@ -95,6 +96,12 @@ if (!function_exists('get_floors')) {
                     $query->where('show_in_nav', 2)->where('is_show', 1);
                 }
             ]);
+            foreach ($list as $v) {
+                $v->ad1 = get_ads($v->filter_attr[0]);
+                $v->ad2 = get_ads($v->filter_attr[0]);
+                $v->ad3 = get_ads($v->filter_attr[1]);
+                $v->ad4 = get_ads($v->filter_attr[2]);
+            }
         } else {
             $list = \Illuminate\Support\Facades\Cache::tags('category')
                 ->rememberForever(2,
@@ -106,6 +113,12 @@ if (!function_exists('get_floors')) {
                                 $query->where('show_in_nav', 2)->where('is_show', 1);
                             }
                         ]);
+                        foreach ($list as $v) {
+                            $v->ad1 = get_ads($v->filter_attr[0]);
+                            $v->ad2 = get_ads($v->filter_attr[0]);
+                            $v->ad3 = get_ads($v->filter_attr[1]);
+                            $v->ad4 = get_ads($v->filter_attr[2]);
+                        }
                         return $list;
                     });
         }
@@ -165,5 +178,39 @@ if (!function_exists('get_img_path')) {
     {
         $http = "http://images.hezongyy.com/";
         return $http . $img;
+    }
+}
+
+if (!function_exists('formated_price')) {
+    function formated_price($price)
+    {
+        return '￥' . sprintf('%.2f', $price);
+    }
+}
+
+if (!function_exists('xl_top')) {
+    function xl_top($time, $tag = 'week', $num = 10)
+    {
+        $result = Cache::tags('goods')->remember($tag, 60 * 24, function () use ($time, $num) {
+            $order_id = OrderInfo::where('add_time', '>', $time)
+                ->orderBy('order_id', 'asc')->value('order_id');
+            $result   = DB::table('order_goods as og')
+                ->leftJoin('order_info as oi', 'og.order_id', '=', 'oi.order_id')
+                ->leftJoin('goods as g', 'g.goods_id', '=', 'og.goods_id')
+                ->where('og.order_id', '>=', $order_id)->where('oi.order_status', 1)
+                ->orderBy('num', 'desc')
+                ->groupBy('og.goods_id')
+                ->take($num)
+                ->select('g.goods_name', 'g.goods_id', 'g.goods_thumb', 'g.ypgg',
+                    DB::raw('sum(ecs_og.goods_number) as num'))
+                ->get();
+            foreach ($result as $v) {
+                $v->goods_thumb = !empty($v->goods_thumb) ? $v->goods_thumb : 'images/no_picture.gif';
+                $v->goods_thumb = get_img_path($v->goods_thumb);
+                $v->goods_url   = route('goods.show', ['id' => $v->goods_id]);
+            }
+            return $result;
+        });
+        return $result;
     }
 }

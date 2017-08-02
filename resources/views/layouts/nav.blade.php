@@ -3,7 +3,7 @@
         <ul>
             <li class="fenlei">
                 <a href="#" style="font-size:16px">
-                    <img src="{{path('images/fenlei.png')}}"/> 全部商品分类
+                    <img src="{{path('images/index/fenlei.png')}}"/> 全部商品分类
                 </a>
 
             </li>
@@ -23,8 +23,8 @@
                     <li class="child-li">
                         <p>
                             <span class="img_box">
-                                <img src="{{path('images/category/'.$v->template_file)}}" class="leftimg"/>
-                                <img src="{{path('images/category/'.$v->template_file)}}" class="leftimg-1"/>
+                                <img src="{{path('images/category/'.$v->template_file.'.png')}}" class="leftimg"/>
+                                <img src="{{path('images/category/'.$v->template_file.'_1.png')}}" class="leftimg-1"/>
                             </span>
                             <a href="#"><span class="title_text">{{$v->cat_name}}</span></a>
                         </p>

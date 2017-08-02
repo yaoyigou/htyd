@@ -21,7 +21,7 @@
                     </div><span style="color: #cecece;">|</span>
                 </li>
                 <li class="my_jianke" style="float: left;">
-                    <img src="{{path('images/aixin.png')}}" />
+                    <img src="{{path('images/index/aixin.png')}}" />
                     <a target="_blank" href="/user/collect_list">
                         我的收藏
                     </a>

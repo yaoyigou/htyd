@@ -21,13 +21,36 @@ class Category extends Model
         return $category;
     }
 
+    public function get_filter_category()
+    {
+        $query    = self::where('is_show', 1);
+        $category = $query->orderBy('sort_order', 'desc')->get();
+        return $category;
+    }
+
     public function child()
     {
         return $this->hasMany(Category::class, 'parent_id', 'cat_id');
     }
 
+    public function brother()
+    {
+        return $this->hasMany(Category::class, 'parent_id', 'parent_id');
+    }
+
     public function ad_position()
     {
         return $this->hasMany(AdPosition::class, 'status', 'cat_id');
+    }
+
+
+    public function getFilterAttrAttribute($value)
+    {
+        if (empty($value)) {
+            $value = [];
+        } else {
+            $value = explode(',', $value);
+        }
+        return $value;
     }
 }

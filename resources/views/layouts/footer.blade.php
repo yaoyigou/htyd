@@ -1,20 +1,22 @@
 <div class="site-footer" style="border-top: 1px solid #ebebeb;position: relative;background: white;overflow: hidden;">
     <ul class="secondul" style="width: 1200px;margin: 0 auto;position: relative;">
         @foreach($article_cat as $v)
-            <li @if($loop->last) style="border-right: 1px solid #e5e5e5;" @endif>
+            <li>
                 <ul>
                     <a href="{{route('article.index',['cat_id'=>$v->cat_id])}}">
                         <li class="footer_title">{{$v->cat_name}}</li>
                     </a>
-                    @foreach($v->article as $v1)
-                        <a href="{{route('article.show',['id'=>$v->article_id])}}">
-                            <li>{{$v->title}}</li>
-                        </a>
+                    @foreach($v->article as $k1=>$v1)
+                        @if($k1<5)
+                            <a href="{{route('article.show',['id'=>$v1->article_id])}}">
+                                <li>{{str_limit($v1->title,20)}}</li>
+                            </a>
+                        @endif
                     @endforeach
                 </ul>
             </li>
         @endforeach
-        <li class="erweima">
+        <li class="erweima" style="border-left: 1px solid #e5e5e5;">
             <p class="title">关注微信</p>
             <div class="img_box">
                 二维码

@@ -18,5 +18,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('cart','CartController');
-Route::resource('order','OrderController');
+Route::resource('cart', 'CartController');
+Route::resource('order', 'OrderController');
+Route::resource('article', 'ArticleController');
+Route::get('goods/search', 'GoodsController@search')->name('goods.search');
+Route::resource('goods', 'GoodsController',['only'=>['index','show']]);

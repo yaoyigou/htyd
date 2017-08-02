@@ -2,7 +2,7 @@
     <div class="search_box">
         <div>
             <a href="{{route('index')}}" style="display: inline-block;height: 64px;position: relative;">
-                <img style="position: absolute;" src="{{path('images/logo.jpg')}}"/>
+                <img style="position: absolute;" src="{{path('images/index/logo.jpg')}}"/>
             </a>
             <div class="search_box fn_clear">
                 <input id="suggest" name="userSearch" type="text" value="药品名称(拼音缩写)或厂家名称" class="search_input suggest"/>
@@ -19,14 +19,14 @@
 
             <a href="{{route('cart.index')}}">
                 <div class="gouwuche" style="float: right;">
-                    <img style="margin-top: -5px;" src="{{path('images/gouwuche.png')}}"/> 购物车
+                    <img style="margin-top: -5px;" src="{{path('images/index/gouwuche.png')}}"/> 购物车
                     <span style="color: red;">(0)</span>
                 </div>
             </a>
 
             <a href="{{route('order.index')}}">
                 <div class="dingdan" style="float: right;">
-                    <img src="{{path('images/order.png')}}"/> 订单查询
+                    <img src="{{path('images/index/order.png')}}"/> 订单查询
                 </div>
             </a>
 
