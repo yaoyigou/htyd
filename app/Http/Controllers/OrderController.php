@@ -2,29 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Common\Page;
 use App\Models\OrderAction;
 use App\Models\OrderInfo;
 use Illuminate\Http\Request;
 
-class OrderInfoController extends Controller
+class OrderController extends Controller
 {
+    use Page;
+
     public $model;
 
-    public $user;
-
-    public $assign = [];
-
-    public $sort;
-
-    public $order;
-
-    public $page_num;
-
-    public function __construct(OrderInfo $orderInfo)
+    public function __construct(OrderInfo $model)
     {
-        $this->model          = $orderInfo;
-        $this->user           = auth()->user();
-        $this->assign['user'] = $this->user;
+        $this->model = $model;
+        $this->middleware(function ($request, $next) {
+            $this->user             = auth()->user();
+            $this->assign['user']   = $this->user;
+            $this->assign['action'] = 'order';
+            return $next($request);
+        });
     }
 
     /**
@@ -32,9 +29,35 @@ class OrderInfoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $date        = intval($request->input('date'));
+        $order_sn    = trim($request->input('order_sn'));
+        $this->sort  = trim($request->input('sort', 'order_id'));
+        $this->order = trim($request->input('order', 'desc'));
+        $query       = $this->model->where('user_id', $this->user->user_id);
+        switch ($date) {
+            case 0:
+                $query = $query->where('add_time', '>=', strtotime('-3 month'));
+                break;
+            case 1:
+                $query = $query->where('add_time', '>=', strtotime(date('Y') . '-01-01'))
+                    ->where('add_time', '<', strtotime((date('Y') + 1) . '-01-01'));
+                break;
+            case 2:
+                $query = $query->where('add_time', '<', strtotime(date('Y') . '-01-01'));
+                break;
+        }
+        if (!empty($order_sn)) {
+            $query = $query->where('order_sn', 'like', '%' . $order_sn . '%');
+        }
+        $request->offsetSet('date', $date);
+        $request->offsetSet('order_sn', $order_sn);
+        $query                  = $this->sort_order($query);
+        $result                 = $query->Paginate($this->page_num);
+        $result                 = $this->add_params($result, $request->all());
+        $this->assign['result'] = $result;
+        return view('order.index', $this->assign);
     }
 
     /**

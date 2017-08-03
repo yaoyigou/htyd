@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Common\Common;
 use Illuminate\Database\Eloquent\Model;
 
 class Goods extends Model
 {
+    use Common;
+
     protected $table = 'goods';
     protected $primaryKey = 'goods_id';
 
@@ -467,4 +470,5 @@ class Goods extends Model
         }
         return $result;
     }
+
 }

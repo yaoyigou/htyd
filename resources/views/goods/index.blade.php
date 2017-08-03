@@ -1,13 +1,11 @@
 @extends('layouts.app')
-@section('css')
-    <link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{path('css/puyao.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{path('css/common/page.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{path('css/common/fixed_search.css')}}" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="{{path('js/nav.js')}}"></script>
-    <script type="text/javascript" src="{{path('js/puyao.js')}}"></script>
-    <script type="text/javascript" src="{{path('js/change_num.js')}}"></script>
-@endsection
+@push('css')
+<link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{path('css/puyao.css')}}" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{{path('js/nav.js')}}"></script>
+<script type="text/javascript" src="{{path('js/puyao.js')}}"></script>
+<script type="text/javascript" src="{{path('js/change_num.js')}}"></script>
+@endpush
 @section('content')
     @include('layouts.header')
     @include('layouts.search')

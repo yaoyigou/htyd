@@ -1,4 +1,7 @@
 @if ($paginator->hasPages())
+    @push('css')
+    <link href="{{path('css/common/page.css')}}" rel="stylesheet" type="text/css"/>
+    @endpush
     <div class="fenye" style="text-align: right;">
         <ul class="pagination">
             {{-- Previous Page Link --}}

@@ -7,6 +7,7 @@
  */
 use App\Models\ShopConfig;
 use App\Models\OrderInfo;
+use Illuminate\Support\Facades\Cache;
 
 
 if (!function_exists('shop_config')) {
@@ -223,7 +224,7 @@ if (!function_exists('order_status')) {
                 'status'  => 1,//订单已确认，未付款，未发货
                 'content' => '请您尽快完成付款，订单为未付款。',
                 'tip'     => '未付款',
-                'handle'  => "<a href='" . route('order_info.show', ['id' => $order_id]) . "'>付款</a>",
+                'handle'  => "<a href='" . route('order.show', ['id' => $order_id]) . "'>付款</a>",
             ];
         }
         if ($order_status == 1 && $pay_status == 2 && $shipping_status == 0) {
@@ -263,7 +264,7 @@ if (!function_exists('order_status')) {
                 'status'  => 6,//订单已确认，已付款，已发货
                 'content' => '您的订单已发货。',
                 'tip'     => '已发货',
-                'handle'  => "<a href='" . route('order_info.show', ['id' => $order_id]) . "'>确认收货</a>",
+                'handle'  => "<a href='" . route('order.show', ['id' => $order_id]) . "'>确认收货</a>",
             ];
         }
         if ($order_status == 1 && $pay_status == 2 && $shipping_status == 5) {
@@ -287,5 +288,39 @@ if (!function_exists('order_status')) {
         } else {
             return $result[$name];
         }
+    }
+}
+
+if (!function_exists('get_region_list')) {
+    function get_region_list($parent_id = 1)
+    {
+        $region = Cache::rememberForever('region', function () {
+            return \App\Models\Region::all();
+        });
+        $result = $region->where('parent_id', 1)->pluck('region_name', 'region_id');
+        return $result;
+    }
+}
+
+if (!function_exists('get_region_name')) {
+    function get_region_name(array $ids, string $fh = '')
+    {
+        $region = Cache::rememberForever('region', function () {
+            return \App\Models\Region::all();
+        });
+        $result = $region->whereIn('region_id', $ids)->pluck('region_name')->toArray();
+        $str    = explode($fh, $result);
+        return $str;
+    }
+}
+
+if (!function_exists('get_user_rank')) {
+    function get_user_rank()
+    {
+        Cache::forget('user_rank');
+        $user_rank = Cache::rememberForever('user_rank', function () {
+            return \App\Models\UserRank::pluck('rank_name', 'rank_id')->toArray();
+        });
+        return $user_rank;
     }
 }

@@ -1,16 +1,15 @@
 @extends('layouts.app')
-@section('css')
-    <link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{path('css/index/lunbo.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{path('css/index/main.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{path('css/common/fixed_search.css')}}" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="{{path('js/index/index.js')}}"></script>
-    <style>
-        .category-menu {
-            display: block;
-        }
-    </style>
-@endsection
+@push('css')
+<link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{path('css/index/lunbo.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{path('css/index/main.css')}}" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{{path('js/index/index.js')}}"></script>
+<style>
+    .category-menu {
+        display: block;
+    }
+</style>
+@endpush
 @section('content')
     @include('layouts.header')
     @include('layouts.search')

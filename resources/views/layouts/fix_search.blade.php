@@ -1,3 +1,6 @@
+@push('css')
+<link href="{{path('css/common/fixed_search.css')}}" rel="stylesheet" type="text/css"/>
+@endpush
 <div class="fixsearch">
     <div class="fixsearch-box">
         <img src="{{path('images/index/fixed_logo.jpg')}}" style="float: left;"/>

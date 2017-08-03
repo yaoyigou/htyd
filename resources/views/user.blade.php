@@ -1,32 +1,30 @@
 @extends('layouts.app')
-@section('css')
-    <link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{path('css/common/fixed_search.css')}}" rel="stylesheet" type="text/css"/>
-    <link href="{{path('css/member2.css')}}" rel="stylesheet" type="text/css"/>
-    <script type="text/javascript" src="{{path('js/nav.js')}}"></script>
-    <script type="text/javascript" src="{{path('js/member.js')}}"></script>
-    <script type="text/javascript" src="{{path('js/slides.jquery.js')}}"></script>
-    <script type="text/javascript" src="{{path('js/my_order.js')}}"></script>
-    <script type="text/javascript" src="{{path('js/change_num.js')}}"></script>
+@push('css')
+<link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{path('css/member2.css')}}" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="{{path('js/nav.js')}}"></script>
+<script type="text/javascript" src="{{path('js/slides.jquery.js')}}"></script>
+<script type="text/javascript" src="{{path('js/my_order.js')}}"></script>
+<script type="text/javascript" src="{{path('js/change_num.js')}}"></script>
 
-    <style>
-        .main .main_left {
-            border-right: 0;
-        }
+<style>
+    .main .main_left {
+        border-right: 0;
+    }
 
-        .main {
-            margin-top: 12px;
-        }
+    .main {
+        margin-top: 12px;
+    }
 
-        .ddgz-alert {
-            margin-left: -90px !important;
-        }
+    .ddgz-alert {
+        margin-left: -90px !important;
+    }
 
-        .hover_underline:hover {
-            text-decoration: underline;
-        }
-    </style>
-@endsection
+    .hover_underline:hover {
+        text-decoration: underline;
+    }
+</style>
+@endpush
 @section('content')
     @include('layouts.header')
     @include('layouts.search')
@@ -48,7 +46,7 @@
                 <li class="end"><span class="ico_com ico_4"></span>待付款金额<p>{{formated_price($wait_amount)}}</p></li>
             </ul>
             <div class="infor">
-                <div class="title_name"><a class="hover_underline" href="{{route('user.youhuiq')}}"
+                <div class="title_name"><a class="hover_underline" href="{{route('youhuiq.index')}}"
                                            style="font-size: 18px;color: #FF6102;">优惠券管理&nbsp;&gt;&gt;</a></div>
             </div>
             <div class="infor">
@@ -104,12 +102,12 @@
             <div class="order fn_clear">
                 <div class="title">
                     <h4>最近订单</h4>
-                    <p class="title"><a href="{{route('order_info.index',['status'=>100])}}">待付款 <span
+                    <p class="title"><a href="{{route('order.index',['status'=>100])}}">待付款 <span
                                     class="num">{{$wait_order}}</span></a> |</p>
-                    <p class="title"><a href="{{route('order_info.index',['status'=>101])}}">待收货 <span
+                    <p class="title"><a href="{{route('order.index',['status'=>101])}}">待收货 <span
                                     class="num">{{$pay_order}}</span></a>
                     <p class="title" style="float: right"><a class="hover_underline"
-                                                             href="{{route('order_info.index')}}"
+                                                             href="{{route('order.index')}}"
                                                              style="font-size: 12px;color: #39a817;line-height: 30px;">更多&gt;&gt;</a>
                     </p>
 
@@ -131,18 +129,18 @@
                         @foreach($near_order as $v)
                             <tr>
                                 <td class="nub tb1_td1" data-id='{{$v->order_id}}'><a
-                                            href="{{route('order_info.show',['id'=>$v->order_id])}}">{{$v->order_sn}}</a>
+                                            href="{{route('order.show',['id'=>$v->order_id])}}">{{$v->order_sn}}</a>
                                 </td>
                                 <td class="date tb1_td2">{{date('Y-m-d H:i:s',$v->add_time)}}    </td>
                                 <td class="score tb1_td4">{{formated_price($v->goods_amount)}}</td>
                                 <td class="data tb1_td5">
                                     {!! order_status($v->order_id,$v->order_status,$v->pay_status,$v->shipping_status,'tip') !!}
                                     &nbsp; &nbsp; <span class="stat" style="color:#39A817;cursor:pointer;" id="ddgz"
-                                                        dd-url="{{route('order_info.ddgz')}}">订单跟踪</span>
+                                                        dd-url="{{route('order.ddgz')}}">订单跟踪</span>
                                 </td>
                                 <td class="result tb1_td6">
                                     {!! order_status($v->order_id,$v->order_status,$v->pay_status,$v->shipping_status,'handle') !!}
-                                    &nbsp; <a href="{{route('order_info.show',['id'=>$v->order_id])}}" class="f6">查看订单</a>
+                                    &nbsp; <a href="{{route('order.show',['id'=>$v->order_id])}}" class="f6">查看订单</a>
                                 </td>
                             </tr>
                         @endforeach

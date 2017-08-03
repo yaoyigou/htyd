@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Common\Common;
 use Illuminate\Database\Eloquent\Model;
 
 class OrderInfo extends Model
 {
+    use Common;
+
     protected $table = 'order_info';
     protected $primaryKey = 'order_id';
 

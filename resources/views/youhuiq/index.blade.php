@@ -14,7 +14,7 @@
 
         <div class="main fn_clear">
             <div class="top">
-                <span class="title">我的药易购</span> <a>>　<span>优惠券管理</span> </a> <a href="{{route('user.orderList')}}"
+                <span class="title">我的药易购</span> <a>>　<span>优惠券管理</span> </a> <a href="{{route('youhuiq.index')}}"
                                                                                  class="end">>　<span>{{$pages_top}}</span></a>
             </div>
             @include('layout.user_menu')

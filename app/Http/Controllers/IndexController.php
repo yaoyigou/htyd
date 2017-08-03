@@ -14,8 +14,11 @@ class IndexController extends Controller
 
     public function __construct()
     {
-        $this->user           = auth()->user();
-        $this->assign['user'] = $this->user;
+        $this->middleware(function ($request, $next) {
+            $this->user           = auth()->user();
+            $this->assign['user'] = $this->user;
+            return $next($request);
+        });
     }
 
     public function index(Request $request)

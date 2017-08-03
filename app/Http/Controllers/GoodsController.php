@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Common\Page;
 use App\Models\Category;
 use App\Models\Goods;
 use App\Models\KxpzPrice;
@@ -9,24 +10,18 @@ use Illuminate\Http\Request;
 
 class GoodsController extends Controller
 {
+    use Page;
 
     public $model;
 
-    public $user;
-
-    public $assign = [];
-
-    public $sort;
-
-    public $order;
-
-    public $page_num;
-
     public function __construct(Goods $goods)
     {
-        $this->model          = $goods;
-        $this->user           = auth()->user();
-        $this->assign['user'] = $this->user;
+        $this->model = $goods;
+        $this->middleware(function ($request, $next) {
+            $this->user           = auth()->user();
+            $this->assign['user'] = $this->user;
+            return $next($request);
+        });
     }
 
     public function search(Request $request)
@@ -50,8 +45,6 @@ class GoodsController extends Controller
         $product_name = trim($request->input('product_name'));
         $ypgg         = trim($request->input('ypgg'));
         $style        = trim($request->input('style', 'l'));
-        $this->sort   = trim($request->input('sort', 'sort_order'));
-        $this->order  = trim($request->input('order', 'desc'));
         $query        = $this->model->where('is_on_sale', 1)
             ->where('is_alone_sale', 1)->where('is_delete', 0);
         $this->user_tj($query);
@@ -132,16 +125,14 @@ class GoodsController extends Controller
             }
         }
         $query->with(['goods_attr', 'member_price']);
-        $result = $query->orderBy($this->sort, $this->order)->orderBy('goods_thumb', 'desc')
-            ->Paginate($this->page_num);
+        $this->sort_order($query);
+        $result = $query->Paginate($this->page_num_check(40, 40));
         foreach ($result as $v) {
             $v = $this->model->attr($v, $this->user);
         }
-        $params                     = [
-            'style' => $style,
-        ];
+        $request->offsetSet('style', $style);
         $inputs                     = $request->all();
-        $result                     = $this->add_params($result, array_merge($params, $inputs));
+        $result                     = $this->add_params($result, $inputs);
         $sort_arr                   = [
             'sort_order',
             'click_count',
@@ -157,51 +148,6 @@ class GoodsController extends Controller
         $this->assign['filter_arr'] = $filter_arr;
         $this->assign['week_sale']  = $weeksale;
         return view('goods.index', $this->assign);
-    }
-
-    private function add_params($result, $params = [])
-    {
-        $params = array_merge($params, [
-            'sort'     => $this->sort,
-            'order'    => $this->order,
-            'page_num' => $this->page_num,
-        ]);
-        foreach ($params as $k => $v) {
-            if (!empty($v)) {
-                $this->assign[$k] = $v;
-                $result->appends([$k => $v]);
-            }
-        }
-        $result->params = $params;
-        return $result;
-    }
-
-    private function sort_arr($page, $sort_arr)
-    {
-        $arr       = [];
-        $order_arr = [
-            'desc' => 'asc',
-            'asc'  => 'desc',
-        ];
-        foreach ($sort_arr as $v) {
-            if ($v == $this->sort) {
-                $this_page = str_replace($this->order, $order_arr[$this->order], $page);
-                if (isset($this->assign['step']) && $this->assign['step'] == 'cx') {
-                    $this_page = str_replace('&step=' . $this->assign['step'], '', $this_page);
-                    $this_page = str_replace('step=' . $this->assign['step'], '', $this_page);
-                }
-                $arr[$v] = 'class="sorting_' . $this->order . '" href="' . $this_page . '"';
-            } else {
-                $this_page = str_replace($this->order, 'desc', $page);
-                $this_page = str_replace($this->sort, $v, $this_page);
-                if (isset($this->assign['step']) && $this->assign['step'] == 'cx') {
-                    $this_page = str_replace('&step=' . $this->assign['step'], '', $this_page);
-                    $this_page = str_replace('step=' . $this->assign['step'], '', $this_page);
-                }
-                $arr[$v] = 'class="sorting" href="' . $this_page . '"';
-            }
-        }
-        return $arr;
     }
 
     private function shoupin($str)

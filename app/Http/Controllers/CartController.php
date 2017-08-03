@@ -23,8 +23,11 @@ class CartController extends Controller
     public function __construct(Cart $cart)
     {
         $this->model          = $cart;
-        $this->user           = auth()->user();
-        $this->assign['user'] = $this->user;
+        $this->middleware(function ($request, $next) {
+            $this->user           = auth()->user();
+            $this->assign['user'] = $this->user;
+            return $next($request);
+        });
     }
 
     /**
@@ -55,7 +58,6 @@ class CartController extends Controller
      */
     public function store(Request $request, Goods $goods)
     {
-        $this->user   = auth()->user();
         $id           = intval($request->input('id', 0));
         $goods_number = intval($request->input('num', 0));
         $goods_info   = $goods->with('goods_attr', 'member_price')->where('is_delete', 0)

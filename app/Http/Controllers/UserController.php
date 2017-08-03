@@ -21,8 +21,11 @@ class UserController extends Controller
     {
         Auth::loginUsingId(13960);
         $this->model          = $user;
-        $this->user           = auth()->user();
-        $this->assign['user'] = $this->user;
+        $this->middleware(function ($request, $next) {
+            $this->user           = auth()->user();
+            $this->assign['user'] = $this->user;
+            return $next($request);
+        });
     }
 
     public function index(OrderInfo $orderInfo, CollectGoods $collectGoods, Goods $goods)

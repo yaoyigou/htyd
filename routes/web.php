@@ -19,14 +19,13 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('cart', 'CartController');
-Route::resource('order', 'OrderController');
 Route::resource('article', 'ArticleController');
 Route::get('goods/search', 'GoodsController@search')->name('goods.search');
 Route::resource('goods', 'GoodsController', ['only' => ['index', 'show']]);
 Route::resource('account_log', 'AccountLogController', ['only' => ['index', 'show']]);
-Route::get('order_info/ddgz', 'OrderInfoController@ddgz')->name('order_info.ddgz');
-Route::resource('order_info', 'OrderInfoController', ['only' => ['index', 'show', 'update', 'destroy']]);
+Route::get('order/ddgz', 'OrderController@ddgz')->name('order.ddgz');
+Route::resource('order', 'OrderController', ['only' => ['index', 'show', 'update', 'destroy']]);
 Route::resource('collect_goods', 'CollectGoodsController', ['only' => ['index', 'destroy']]);
+Route::resource('youhuiq', 'YouhuiqController', ['only' => ['index']]);
 
 Route::get('user', 'UserController@index')->name('user.index');
-Route::get('user/youhuiq', 'UserController@youhuiq')->name('user.youhuiq');
