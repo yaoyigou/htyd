@@ -24,6 +24,10 @@ class AppServiceProvider extends ServiceProvider
             $view->with('nav_bottom', get_nav('bottom'));
             $view->with('article_cat', get_article_cat());
         });
+        view()->composer('layouts.user_menu', function ($view) {
+            $view->with('user_menu1', get_nav('user1'));
+            $view->with('user_menu2', get_nav('user2'));
+        });
     }
 
     /**

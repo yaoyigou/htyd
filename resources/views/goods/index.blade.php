@@ -2,6 +2,7 @@
 @section('css')
     <link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{path('css/puyao.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{path('css/common/page.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{path('css/common/fixed_search.css')}}" rel="stylesheet" type="text/css"/>
     <script type="text/javascript" src="{{path('js/nav.js')}}"></script>
     <script type="text/javascript" src="{{path('js/puyao.js')}}"></script>
@@ -716,7 +717,7 @@
                     </div>
                 @endif
             <!--产品结束-->
-                {!! $result->links() !!}
+                {!! $result->links('layouts.page',['show_form'=>1,'inputs'=>$inputs,'action'=>route('goods.index'),'show_num'=>2]) !!}
             </div>
             <!--内容结束-->
         </div>

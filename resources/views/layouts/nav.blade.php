@@ -9,7 +9,7 @@
             </li>
             @if($middle_nav)
                 @foreach($middle_nav as $k=>$v)
-                    <li class="li2"><a @if(isset($dh_check)&&$v->id==$dh_check)class="checked" @endif href="{{$v->url}}"
+                    <li class="li2"><a @if(isset($action)&&$v->id==$action)class="checked" @endif href="{{$v->url}}"
                                        @if($v->opennew==1)target="_blank" @endif >{{$v->name}}</a>
                     </li>
                 @endforeach

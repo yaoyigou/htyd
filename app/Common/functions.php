@@ -28,9 +28,9 @@ if (!function_exists('path')) {
 
 
 if (!function_exists('tips')) {
-    function tips($message = '', int $errors = 0, array $params = [], array $headers = [])
+    function tips($message = '', int $error = 0, array $params = [], array $headers = [])
     {
-        $params['errors'] = $errors;
+        $params['error'] = $error;
         throw new \App\Exceptions\TipsException($message, $params, $headers);
     }
 }
@@ -96,12 +96,6 @@ if (!function_exists('get_floors')) {
                     $query->where('show_in_nav', 2)->where('is_show', 1);
                 }
             ]);
-            foreach ($list as $v) {
-                $v->ad1 = get_ads($v->filter_attr[0]);
-                $v->ad2 = get_ads($v->filter_attr[0]);
-                $v->ad3 = get_ads($v->filter_attr[1]);
-                $v->ad4 = get_ads($v->filter_attr[2]);
-            }
         } else {
             $list = \Illuminate\Support\Facades\Cache::tags('category')
                 ->rememberForever(2,
@@ -113,14 +107,14 @@ if (!function_exists('get_floors')) {
                                 $query->where('show_in_nav', 2)->where('is_show', 1);
                             }
                         ]);
-                        foreach ($list as $v) {
-                            $v->ad1 = get_ads($v->filter_attr[0]);
-                            $v->ad2 = get_ads($v->filter_attr[0]);
-                            $v->ad3 = get_ads($v->filter_attr[1]);
-                            $v->ad4 = get_ads($v->filter_attr[2]);
-                        }
                         return $list;
                     });
+        }
+        foreach ($list as $v) {
+            $v->ad1 = get_ads($v->filter_attr[0]);
+            $v->ad2 = get_ads($v->filter_attr[0]);
+            $v->ad3 = get_ads($v->filter_attr[1]);
+            $v->ad4 = get_ads($v->filter_attr[2]);
         }
         return $list;
     }
@@ -212,5 +206,86 @@ if (!function_exists('xl_top')) {
             return $result;
         });
         return $result;
+    }
+}
+
+if (!function_exists('order_status')) {
+    function order_status($order_id, $order_status, $pay_status, $shipping_status, $name = '')
+    {
+        $result = [
+            'status'  => 0,
+            'content' => '',
+            'tip'     => '',
+            'handle'  => '',
+        ];
+        if ($order_status == 1 && $pay_status == 0 && $shipping_status == 0) {
+            $result = [
+                'status'  => 1,//订单已确认，未付款，未发货
+                'content' => '请您尽快完成付款，订单为未付款。',
+                'tip'     => '未付款',
+                'handle'  => "<a href='" . route('order_info.show', ['id' => $order_id]) . "'>付款</a>",
+            ];
+        }
+        if ($order_status == 1 && $pay_status == 2 && $shipping_status == 0) {
+            $result = [
+                'status'  => 2,//订单已确认，已付款，未发货
+                'content' => '您的订单商家正在积极备货中，未发货。',
+                'tip'     => '已付款',
+                'handle'  => "<span>已付款</span>",
+            ];
+        }
+        if ($order_status == 1 && $pay_status == 2 && $shipping_status == 1) {
+            $result = [
+                'status'  => 3,//订单已确认，已付款，已开票
+                'content' => '您的订单商家已开票。',
+                'tip'     => '待发货',
+                'handle'  => "<span>已付款</span>",
+            ];
+        }
+        if ($order_status == 1 && $pay_status == 2 && $shipping_status == 2) {
+            $result = [
+                'status'  => 4,//订单已确认，已付款，出库中
+                'content' => '您的订单正在出库中，请您耐心等待。',
+                'tip'     => '出库中',
+                'handle'  => "<span>已付款</span>",
+            ];
+        }
+        if ($order_status == 1 && $pay_status == 2 && $shipping_status == 3) {
+            $result = [
+                'status'  => 5,//订单已确认，已付款，已出库
+                'content' => '您的订单现已出库。',
+                'tip'     => '已出库',
+                'handle'  => "<span>已付款</span>",
+            ];
+        }
+        if ($order_status == 1 && $pay_status == 2 && $shipping_status == 4) {
+            $result = [
+                'status'  => 6,//订单已确认，已付款，已发货
+                'content' => '您的订单已发货。',
+                'tip'     => '已发货',
+                'handle'  => "<a href='" . route('order_info.show', ['id' => $order_id]) . "'>确认收货</a>",
+            ];
+        }
+        if ($order_status == 1 && $pay_status == 2 && $shipping_status == 5) {
+            $result = [
+                'status'  => 7,//订单已确认，已付款，已完成
+                'content' => "<font color='red'>您的订单已送达成功！已完成。</font>",
+                'tip'     => "已完成",
+                'handle'  => "<span>已完成</span>",
+            ];
+        }
+        if ($order_status == 2 && $pay_status == 0) {
+            $result = [
+                'status'  => 8,//订单已取消，未付款，未发货
+                'content' => "<font color='red'>您的订单已取消。</font>",
+                'tip'     => "已取消",
+                'handle'  => "<span style='color:red'>已取消</span>",
+            ];
+        }
+        if ($name == '') {
+            return $result;
+        } else {
+            return $result[$name];
+        }
     }
 }

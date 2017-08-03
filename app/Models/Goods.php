@@ -302,12 +302,169 @@ class Goods extends Model
         return $v;
     }
 
-    public static function is_xg($status,$start,$end){
-        if($status!=0&&time()>=$start&&time()<=$end){//商品限购
+    public static function is_xg($status, $start, $end)
+    {
+        if ($status != 0 && time() >= $start && time() <= $end) {//商品限购
             return $status;
-        }
-        else{
+        } else {
             return 0;
         }
+    }
+
+    public function area_xg($goods, $user)
+    {
+        $country           = $user->country;
+        $province          = $user->province;
+        $city              = $user->city;
+        $district          = $user->district;
+        $user_rank         = $user->user_rank;
+        $user_id           = $user->user_id;
+        $goods->is_can_buy = 1;
+//        if($user->hymsy==0&&$goods->hy_price>0){//非码上有用户不能购买哈药
+//            $goods->is_can_buy = 0;
+//            return $goods;
+//        }
+        $arr  = explode('.', $goods->ls_buy_user_id);
+        $arr1 = explode('.', $goods->ls_regions);//区域限制
+        $arr2 = explode('.', $goods->zs_regions);//诊所限制
+        $arr3 = explode('.', $goods->yy_regions);//医院限制
+        $arr4 = explode('.', $goods->zs_user_ids);//诊所会员限制
+        $arr5 = explode('.', $goods->yy_user_ids);//医院会员限制
+        $arr6 = explode(',', $goods->ls_ranks);//等级限制
+        if (!in_array($user_id, $arr)) {
+            if (in_array($user_rank, $arr6)) {
+                $goods->is_can_buy = 0;
+                return $goods;
+            }
+            if (in_array($country, $arr1) || in_array($province, $arr1) || in_array($city, $arr1) || in_array($district, $arr1)) {
+                $goods->is_can_buy = 0;
+                return $goods;
+            }
+            if (!$user->is_zhongduan &&
+                (in_array($country, $arr3) || in_array($province, $arr3) || in_array($city, $arr3) || in_array($district, $arr3) || in_array($user_id, $arr5))
+            ) {
+                $goods->is_can_buy = 0;
+                return $goods;
+            }
+            if ($user->is_zhongduan &&
+                (in_array($country, $arr2) || in_array($province, $arr2) || in_array($city, $arr2) || in_array($district, $arr2) || in_array($user_id, $arr4))
+            ) {
+                $goods->is_can_buy = 0;
+                return $goods;
+            }
+        }
+        return $goods;
+    }
+
+    public function check_cart($goods, $user)
+    {
+        $result = [
+            'error'   => 0,
+            'message' => $goods->goods_name,
+        ];
+
+        //采购、提货、收货委托书及身份证复印件  user_rank  weitsh_yxq
+        $yyzz_time  = strtotime(trim($user->yyzz_time));
+        $xkz_time   = strtotime(trim($user->xkz_time));
+        $zs_time    = strtotime(trim($user->zs_time));
+        $yljg_time  = strtotime(trim($user->yljg_time));
+        $cgwts_time = strtotime(trim($user->cgwts_time));
+
+        // 2014-11-26 采购、提货、收货委托书及身份证复印件
+        $user->user_rank  = intval($user->user_rank);
+        $user->ls_mzy     = intval($user->ls_mzy);
+        $user->ls_swzp    = intval($user->ls_swzp);
+        $user->mhj_number = intval($user->mhj_number);
+        $time             = time();
+        if ($user->ls_review == 0) {
+            $result['error']   = 1;
+            $result['message'] = "未审核不能购买商品";
+            return $result;
+        }
+        //dd($user,$user->yyzz_time , $time);
+        //if($user->user_rank != 1){
+        if ($yyzz_time && $yyzz_time < $time) {
+            $result['error']   = 1;
+            $result['message'] = "您的营业执照已过期，请尽快重新邮寄";
+            return $result;
+        }
+        if ($xkz_time && $xkz_time < $time) {
+            $result['error']   = 1;
+            $result['message'] = "您的药品经营许可证已过期，请尽快重新邮寄";
+            return $result;
+        }
+        if ($zs_time && $zs_time < $time) {
+
+            $result['error']   = 1;
+            $result['message'] = "您的GSP证书已过期，请尽快重新邮寄";
+            return $result;
+
+        }
+        if ($yljg_time && $yljg_time < $time) {
+
+            $result['error']   = 1;
+            $result['message'] = "您的医疗机构执业许可证已过期，请尽快重新邮寄";
+            return $result;
+
+        }
+        if ($cgwts_time && $cgwts_time < $time) {
+
+            $result['error']   = 1;
+            $result['message'] = "您的采购委托书已过期，请尽快重新邮寄";
+            return $result;
+
+        }
+        //}
+
+        if ($goods->is_can_buy == 0) {//限购商品
+            $result['error']   = 1;
+            $result['message'] .= "商品限购,如需购买请联系客服!";
+            return $result;
+        }
+
+        if ($goods->is_on_sale == 0) {//没上架
+            $result['error']   = 1;
+            $result['message'] .= "商品已下架!";
+            return $result;
+        }
+
+        if ($goods->is_delete != 0) {//已删除
+            $result['error']   = 1;
+            $result['message'] = "商品已下架!";
+            return $result;
+        }
+
+        if ($goods->is_alone_sale != 1) {//已删除
+            $result['error']   = 1;
+            $result['message'] = "商品已下架!";
+            return $result;
+        }
+
+        if ($goods->real_price <= 0) {
+
+            $result['error']   = 1;
+            $result['message'] .= "价格正在制定中!";
+            return $result;
+
+        }
+
+        return $result;
+
+
+    }
+
+    public function goods_list($user, $take = 15, $where = [])
+    {
+        $query = self::with('goods_attr', 'member_price')
+            ->where('is_on_sale', 1)->where('is_delete', 0)
+            ->where('is_alone_sale', 1);
+        if ($where instanceof \Closure) {
+            $query->where($where);
+        }
+        $result = $query->take($take)->get();
+        foreach ($result as $v) {
+            $v = self::attr($v, $user);
+        }
+        return $result;
     }
 }

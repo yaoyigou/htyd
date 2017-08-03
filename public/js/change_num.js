@@ -98,7 +98,7 @@ function changePrice(id) {
 function tocart(id) {
     var num = $('#J_dgoods_num_' + id).val();
     $.ajax({
-        url: '/gwc',
+        url: '/cart',
         data: {id: id, num: num},
         dataType: 'json',
         success: function (data) {

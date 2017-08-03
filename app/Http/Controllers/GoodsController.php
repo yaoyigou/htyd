@@ -153,6 +153,7 @@ class GoodsController extends Controller
         $result->sort               = $this->sort_arr($result->url($result->currentPage()), $sort_arr);
         $weeksale                   = xl_top(strtotime('-7 days'));
         $this->assign['result']     = $result;
+        $this->assign['inputs']     = $request->all();
         $this->assign['filter_arr'] = $filter_arr;
         $this->assign['week_sale']  = $weeksale;
         return view('goods.index', $this->assign);
