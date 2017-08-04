@@ -25,22 +25,7 @@
                     我的订单
                 @endslot
                 @slot('right')
-                    <div class="right_box">
-                        <form action="{{route('order.index')}}" enctype="multipart/form-data" method="get">
-                            <div class="search_box" id="search_box" style="margin-top: 0">
-                                <input type="text" name="order_sn" class="keys" value="{{$order_sn}}"
-                                       placeholder="订单编号"/>
-                                <input type="submit" class="search" value="查询"><span class="ico"></span>
-                            </div>
-                            <select name="date">
-                                {{--<option value="0">今天</option>--}}
-                                <option value="0" @if($date==0) selected @endif>最近三个月</option>
-                                <option value="1" @if($date==1) selected @endif>今年内</option>
-                                {{--<option value="{{date('Y',strtotime('-1 year'))}}" @if($dates==date('Y',strtotime('-1 year'))) selected @endif>{{date('Y',strtotime('-1 year'))}}年</option>--}}
-                                <option value="2" @if($date==2) selected @endif>往年订单</option>
-                            </select>
-                        </form>
-                    </div>
+
                 @endslot
                 <table id="se">
                     <tr>

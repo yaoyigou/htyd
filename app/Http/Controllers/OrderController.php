@@ -33,8 +33,6 @@ class OrderController extends Controller
     {
         $date        = intval($request->input('date'));
         $order_sn    = trim($request->input('order_sn'));
-        $this->sort  = trim($request->input('sort', 'order_id'));
-        $this->order = trim($request->input('order', 'desc'));
         $query       = $this->model->where('user_id', $this->user->user_id);
         switch ($date) {
             case 0:
@@ -89,7 +87,13 @@ class OrderController extends Controller
      */
     public function show($id)
     {
-        //
+        $info = $this->model->where('user_id', $this->user->user_id)->find($id);
+        if (!$info) {
+            tips('订单不存在', 1);
+        }
+        $info->load('order_goods');
+        $this->assign['info'] = $info;
+        return view('order.show', $this->assign);
     }
 
     /**

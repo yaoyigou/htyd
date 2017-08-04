@@ -76,4 +76,15 @@ trait Page
         return $this->page_num;
     }
 
+    public function set($model, $action = '')
+    {
+        $this->model = $model;
+        $this->middleware(function ($request, $next) use ($action) {
+            $this->user             = auth()->user();
+            $this->assign['user']   = $this->user;
+            $this->assign['action'] = $action;
+            return $next($request);
+        });
+    }
+
 }

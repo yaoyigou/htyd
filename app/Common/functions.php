@@ -264,7 +264,7 @@ if (!function_exists('order_status')) {
                 'status'  => 6,//订单已确认，已付款，已发货
                 'content' => '您的订单已发货。',
                 'tip'     => '已发货',
-                'handle'  => "<a href='" . route('order.show', ['id' => $order_id]) . "'>确认收货</a>",
+                'handle'  => "<a href='" . route('order.update', ['id' => $order_id, 'act' => 'qrsh']) . "'>确认收货</a>",
             ];
         }
         if ($order_status == 1 && $pay_status == 2 && $shipping_status == 5) {
@@ -322,5 +322,73 @@ if (!function_exists('get_user_rank')) {
             return \App\Models\UserRank::pluck('rank_name', 'rank_id')->toArray();
         });
         return $user_rank;
+    }
+}
+
+if (!function_exists('os')) {
+    function os($os, $style = 0)
+    {
+        $arr = [
+            0 => '未确认',
+            1 => '已确认',
+            2 => '已取消',
+        ];
+        if ($style == 1) {
+            $arr[2] = '<span style="color: red;">已取消</span>';
+        }
+        if (isset($arr[$os])) {
+            return $arr[$os];
+        } else {
+            return '未知状态';
+        }
+    }
+}
+
+if (!function_exists('ps')) {
+    function ps($ps, $style = 0)
+    {
+        $arr = [
+            0 => '未付款',
+            1 => '付款中',
+            2 => '已付款',
+        ];
+        if ($style == 1) {
+            $arr[2] = '<span style="color: red;">已付款</span>';
+        }
+        if (isset($arr[$ps])) {
+            return $arr[$ps];
+        } else {
+            return '未知状态';
+        }
+    }
+}
+
+if (!function_exists('ss')) {
+    function ss($ss, $type = 0)
+    {
+        if ($type == 0) {
+            $arr = [
+                0 => '未开票',
+                1 => '已开票',
+                2 => '出库中',
+                3 => '已出库',
+                4 => '已发货',
+                5 => '已完成',
+            ];
+        } else {
+            $arr = [
+                0 => '未开票',
+                1 => '<span style="color: green">已开票</span>',
+                2 => '出库中',
+                3 => '<span style="color: blue">已出库</span>',
+                4 => '<span style="color: red">已发货</span>',
+                5 => '已完成',
+            ];
+        }
+        if (isset($arr[$ss])) {
+            return $arr[$ss];
+        } else {
+            return '未知状态';
+        }
     }
 }

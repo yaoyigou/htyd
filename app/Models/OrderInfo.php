@@ -12,6 +12,11 @@ class OrderInfo extends Model
     protected $table = 'order_info';
     protected $primaryKey = 'order_id';
 
+    public function order_goods()
+    {
+        return $this->hasMany(OrderGoods::class, 'order_id');
+    }
+
     /**
      * 消费总额
      */
