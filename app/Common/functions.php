@@ -29,7 +29,7 @@ if (!function_exists('path')) {
 
 
 if (!function_exists('tips')) {
-    function tips($message = '', int $error = 0, array $params = [], array $headers = [])
+    function tips($message = '', $error = 0, array $params = [], array $headers = [])
     {
         $params['error'] = $error;
         throw new \App\Exceptions\TipsException($message, $params, $headers);
@@ -303,7 +303,7 @@ if (!function_exists('get_region_list')) {
 }
 
 if (!function_exists('get_region_name')) {
-    function get_region_name(array $ids, string $fh = '')
+    function get_region_name(array $ids, $fh = '')
     {
         $region = Cache::rememberForever('region', function () {
             return \App\Models\Region::all();

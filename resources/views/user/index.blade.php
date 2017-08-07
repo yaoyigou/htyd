@@ -52,7 +52,7 @@
 
         <div class="main_mid">
             <ul class="fn_clear ul_list">
-                <a href="{{route('account_log.index')}}" style="color: #666;">
+                <a href="{{route('user.account_log')}}" style="color: #666;">
                     <li><span class="ico_com ico_1"></span>余额<p>{{formated_price($user->user_money)}}</p></li>
                 </a>
                 <a href="./" style="color: #666;">

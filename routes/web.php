@@ -29,4 +29,8 @@ Route::delete('collect_goods/plsc', 'CollectGoodsController@plsc')->name('collec
 Route::resource('collect_goods', 'CollectGoodsController', ['only' => ['index', 'destroy', 'store']]);
 Route::resource('youhuiq', 'YouhuiqController', ['only' => ['index']]);
 
-Route::get('user', 'UserController@index')->name('user.index');
+
+Route::get('zncg', 'UserController@zncg')->name('user.zncg');
+Route::get('account_log', 'UserController@account_log')->name('user.account_log');
+Route::get('logout', 'UserController@logout')->name('user.logout');
+Route::resource('user', 'UserController', ['only' => ['index', 'show', 'update']]);
