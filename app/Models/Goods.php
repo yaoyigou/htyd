@@ -471,4 +471,25 @@ class Goods extends Model
         return $result;
     }
 
+    public function getErpShangplxAttribute($value)
+    {
+        return trim($value);
+    }
+
+    public function getZxRanksAttribute($value)
+    {
+
+        if (!empty($value)) {
+            $value = explode(',', $value);
+            foreach ($value as $k=>$v){
+                if(empty($v)){
+                    unset($value[$k]);
+                }
+            }
+        } else {
+            $value = [];
+        }
+        return $value;
+    }
+
 }

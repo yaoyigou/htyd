@@ -1,4 +1,4 @@
-@push('css')
+@push('header')
 <link href="{{path('css/common/fixed_search.css')}}" rel="stylesheet" type="text/css"/>
 @endpush
 <div class="fixsearch">

@@ -22,7 +22,7 @@ class CartController extends Controller
 
     public function __construct(Cart $cart)
     {
-        $this->model          = $cart;
+        $this->model = $cart;
         $this->middleware(function ($request, $next) {
             $this->user           = auth()->user();
             $this->assign['user'] = $this->user;
@@ -58,6 +58,12 @@ class CartController extends Controller
      */
     public function store(Request $request, Goods $goods)
     {
+        $ids = trim($request->input('ids'), ',');
+        if (!empty($ids)) {
+            $ids = explode(',', $ids);
+            $this->plgm($ids, $goods);
+            tips('加入购物车成功');
+        }
         $id           = intval($request->input('id', 0));
         $goods_number = intval($request->input('num', 0));
         $goods_info   = $goods->with('goods_attr', 'member_price')->where('is_delete', 0)
@@ -87,9 +93,8 @@ class CartController extends Controller
         $cart->goods_id       = $goods_info->goods_id;
         $cart->goods_sn       = $goods_info->goods_sn;
         $cart->goods_name     = $goods_info->goods_name;
-        $cart->goods_price    = $goods_info->shop_price;
+        $cart->goods_price    = $goods_info->real_price;
         $cart->is_real        = $goods_info->is_real;
-        $cart->extension_code = $goods_info->extension_code;
         $cart->is_gift        = 0;
         $cart->goods_attr     = '';
         $cart->is_shipping    = $goods_info->is_shipping;
@@ -106,6 +111,48 @@ class CartController extends Controller
         }
         if ($cart->save()) {
             tips('商品已成功加入购物车');
+        }
+    }
+
+    protected function plgm($ids, $goods)
+    {
+        $cart   = $this->model->whereIn('goods_id', $ids)
+            ->where('user_id', $this->user->user_id)
+            ->pluck('goods_id')->toArray();
+        $create = array_diff($ids, $cart);
+        $result = $goods->with('goods_attr', 'member_price')->where('is_delete', 0)
+            ->where('is_alone_sale', 1)->whereIn('goods_id', $create)
+            ->where('is_on_sale', 1)->get();
+        if (count($result) > 0) {
+            $insert = [];
+            $now    = time();
+            foreach ($result as $v) {
+                $v = $goods->attr($v, $this->user);
+                $v = $goods->area_xg($v, $this->user);
+                if ($v->is_can_buy == 1) {
+                    $message = $goods->check_cart($v, $this->user);
+                    if ($message['error'] == 0) {
+                        $insert[] = [
+                            'user_id'        => $this->user->user_id,
+                            'goods_id'       => $v->goods_id,
+                            'goods_sn'       => $v->goods_sn,
+                            'goods_name'     => $v->goods_name,
+                            'goods_price'    => $v->real_price,
+                            'is_real'        => $v->is_real,
+                            'extension_code' => $now,
+                            'is_gift'        => 0,
+                            'goods_attr'     => '',
+                            'is_shipping'    => $v->is_shipping,
+                            'ls_gg'          => $v->ls_gg,
+                            'ls_bz'          => $v->ls_bz,
+                            'goods_number'   => $v->zbz,
+                        ];
+                    }
+                }
+            }
+            if (count($insert) > 0) {
+                Cart::insert($insert);
+            }
         }
     }
 

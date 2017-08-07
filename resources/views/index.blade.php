@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('css')
+@push('header')
 <link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{path('css/index/lunbo.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{path('css/index/main.css')}}" rel="stylesheet" type="text/css"/>
@@ -9,6 +9,9 @@
         display: block;
     }
 </style>
+@endpush
+@push('footer')
+<script type="text/javascript" src="{{path('js/index/new-lunbo.js')}}"></script>
 @endpush
 @section('content')
     @include('layouts.header')
@@ -122,7 +125,4 @@
     </div>
     @include('layouts.fix_search')
     @include('layouts.fix_right')
-@endsection
-@section('js')
-    <script type="text/javascript" src="{{path('js/index/new-lunbo.js')}}"></script>
 @endsection

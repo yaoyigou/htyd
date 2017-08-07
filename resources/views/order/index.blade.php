@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('css')
+@push('header')
 <link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{path('css/member2.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{path('css/my_order2.css')}}" rel="stylesheet" type="text/css"/>

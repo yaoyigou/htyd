@@ -17,7 +17,7 @@
     <script type="text/javascript" src="{{path('js/common.js')}}"></script>
     <script type="text/javascript" src="{{path('js/keywordsSearch.js')}}"></script>
     <script type="text/javascript" src="{{path('layer/layer.js')}}"></script>
-    @stack('css')
+    @stack('header')
     <script type="text/javascript">
         $.ajaxSetup({
             headers: {
@@ -45,5 +45,5 @@
 <body id="body" style="background-color: #ffffff;">
 @yield('content')
 </body>
-@stack('js')
+@stack('footer')
 </html>

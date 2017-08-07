@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('css')
+@push('header')
 <link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{path('css/member2.css')}}" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="{{path('js/nav.js')}}"></script>
@@ -24,6 +24,22 @@
         text-decoration: underline;
     }
 </style>
+@endpush
+@push('footer')
+<script type="text/javascript">
+    //滚动播放
+    $(function () {
+        $('#slides').slides({
+            container: 'slides_container',
+            preload: true,
+            play: 3000,
+            pause: 1500,
+            hoverPause: true,
+            effect: 'slide',
+            slideSpeed: 850
+        });
+    })
+</script>
 @endpush
 @section('content')
     @include('layouts.header')
@@ -290,20 +306,6 @@
             </ul>
         </div>
     </div>
-    <script type="text/javascript">
-        //滚动播放
-        $(function () {
-            $('#slides').slides({
-                container: 'slides_container',
-                preload: true,
-                play: 3000,
-                pause: 1500,
-                hoverPause: true,
-                effect: 'slide',
-                slideSpeed: 850
-            });
-        })
-    </script>
     @include('layouts.footer')
     @include('layouts.fix_search')
     @include('layouts.fix_right')

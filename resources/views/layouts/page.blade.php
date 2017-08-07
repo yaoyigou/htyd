@@ -1,5 +1,7 @@
+{!! $html1 or '' !!}
 @if ($paginator->hasPages())
-    @push('css')
+    {!! $html2 or '' !!}
+    @push('header')
     <link href="{{path('css/common/page.css')}}" rel="stylesheet" type="text/css"/>
     @endpush
     <div class="fenye" style="text-align: right;">
@@ -38,7 +40,9 @@
             @else
                 <li class="page-item disabled"><span class="page-link">下一页</span></li>
             @endif
-            <li class="page-item"><span class="page-link no-border">共{{$paginator->lastPage()}}页</span></li>
+            <li class="page-item"><span class="page-link no-border"
+                                        style="padding-right: 0 !important;">共{{$paginator->lastPage()}}
+                    页</span></li>
             @if(isset($show_form)&&$show_form==1)
                 <li class="page-item"><span class="page-link no-border">到第</span></li>
                 <form style="display: inline-block;" action="{{$action}}" id="page_form">

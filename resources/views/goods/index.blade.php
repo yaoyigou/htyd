@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@push('css')
+@push('header')
 <link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{path('css/puyao.css')}}" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="{{path('js/nav.js')}}"></script>

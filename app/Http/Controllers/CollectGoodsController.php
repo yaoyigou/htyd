@@ -25,10 +25,25 @@ class CollectGoodsController extends Controller
     public function index(Request $request)
     {
         $cat_id = intval($request->input('cat_id'));
-        $query  = $this->model->with('goods')->where('user_id', $this->user->user_id);
+        $query  = $this->model->with([
+            'goods' => function ($query) {
+                $query->with('goods_attr', 'member_price');
+            }
+        ])->where('user_id', $this->user->user_id);
         $request->offsetSet('cat_id', $cat_id);
-        $query                  = $this->sort_order($query);
-        $result                 = $query->Paginate($this->page_num);
+        $query  = $this->sort_order($query);
+        $result = $query->Paginate($this->page_num);
+        $delete = [];
+        foreach ($result as $v) {
+            if ($v->goods) {
+                $v->goods = $v->goods->attr($v->goods, $this->user);
+            } else {
+                $delete[] = $v->rec_id;
+            }
+        }
+        if (count($delete) > 0) {
+            $this->model->whereIn('rec_id', $delete)->delete();
+        }
         $result                 = $this->add_params($result, $request->all());
         $this->assign['result'] = $result;
         return view('collect_goods.index', $this->assign);
@@ -52,7 +67,12 @@ class CollectGoodsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $id             = intval($request->input('id'));
+        $info           = new $this->model;
+        $info->user_id  = $this->user->user_id;
+        $info->goods_id = $id;
+        $info->save();
+        tips('加入收藏夹成功');
     }
 
     /**
@@ -97,6 +117,22 @@ class CollectGoodsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $info = $this->model->find($id);
+        if ($this->user->cant('delete', $info)) {
+            tips('错误！', 1);
+        }
+        $info->delete();
+        tips('从收藏夹删除成功！');
+    }
+
+    public function plsc(Request $request)
+    {
+        $ids = trim($request->input('ids'), ',');
+        if (!empty($ids)) {
+            $ids = explode(',', $ids);
+            $this->model->whereIn('goods_id', $ids)
+                ->where('user_id', $this->user->user_id)->delete();
+        }
+        tips('从收藏夹删除成功！');
     }
 }

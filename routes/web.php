@@ -24,8 +24,9 @@ Route::get('goods/search', 'GoodsController@search')->name('goods.search');
 Route::resource('goods', 'GoodsController', ['only' => ['index', 'show']]);
 Route::resource('account_log', 'AccountLogController', ['only' => ['index', 'show']]);
 Route::get('order/ddgz', 'OrderController@ddgz')->name('order.ddgz');
-Route::resource('order', 'OrderController', ['only' => ['index', 'show', 'update', 'destroy']]);
-Route::resource('collect_goods', 'CollectGoodsController', ['only' => ['index', 'destroy']]);
+Route::resource('order', 'OrderController');
+Route::delete('collect_goods/plsc', 'CollectGoodsController@plsc')->name('collect_goods.plsc');
+Route::resource('collect_goods', 'CollectGoodsController', ['only' => ['index', 'destroy', 'store']]);
 Route::resource('youhuiq', 'YouhuiqController', ['only' => ['index']]);
 
 Route::get('user', 'UserController@index')->name('user.index');

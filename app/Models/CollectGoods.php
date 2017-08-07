@@ -12,6 +12,11 @@ class CollectGoods extends Model
     protected $table = 'collect_goods';
     protected $primaryKey = 'rec_id';
 
+    const UPDATED_AT = 'add_time';
+    const CREATED_AT = 'add_time';
+
+    protected $dateFormat = 'U';
+
     public function goods()
     {
         return $this->hasOne(Goods::class, 'goods_id', 'goods_id');

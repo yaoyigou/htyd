@@ -117,9 +117,9 @@ function tocart(id) {
                     btn: ['注册', '登录'], //按钮
                     icon: 2
                 }, function () {
-                    location.href = '/auth/register';
+                    location.href = '/register';
                 }, function () {
-                    location.href = '/auth/login';
+                    location.href = '/login';
                     return false;
                 });
             } else {
@@ -139,7 +139,7 @@ function tocart(id) {
 }
 function tocollect(id) {
     $.ajax({
-        url: '/collect',
+        url: '/collect_goods',
         data: {id: id},
         dataType: 'json',
         success: function (data) {
@@ -148,14 +148,14 @@ function tocollect(id) {
                     btn: ['注册', '登录'], //按钮
                     icon: 2
                 }, function () {
-                    location.href = '/auth/register';
+                    location.href = '/register';
                 }, function () {
-                    location.href = '/auth/login';
+                    location.href = '/login';
                     return false;
                 });
             } else {
                 layer.alert(data.msg, {icon: data.error + 1, btn: '查看我的收藏'}, function () {
-                    location.href = '/user/collectList';
+                    location.href = '/collect_goods';
                 })
             }
         }
@@ -166,9 +166,9 @@ function tocart1() {
         btn: ['注册', '登录'], //按钮
         icon: 2
     }, function () {
-        location.href = '/auth/register';
+        location.href = '/register';
     }, function () {
-        location.href = '/auth/login';
+        location.href = '/login';
         return false;
     });
 }
