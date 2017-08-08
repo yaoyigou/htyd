@@ -293,7 +293,7 @@ if (!function_exists('get_region_name')) {
             return \App\Models\Region::all();
         });
         $result = $region->whereIn('region_id', $ids)->pluck('region_name')->toArray();
-        $str    = explode($fh, $result);
+        $str    = implode($fh, $result);
         return $str;
     }
 }
