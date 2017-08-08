@@ -8,6 +8,11 @@
     .category-menu {
         display: block;
     }
+
+    .ad {
+        width: 100% !important;
+        height: 100% !important;
+    }
 </style>
 @endpush
 @push('footer')
@@ -59,7 +64,7 @@
                 @foreach($ad123 as $k=>$v)
                     @if($k<2)
                         <a href="{{$v->ad_link}}" @if($k==0) class="first_a" @endif>
-                            <img src="{{$v->ad_code}}"/>
+                            <img class="ad" src="{{$v->ad_code}}"/>
                         </a>
                     @endif
                 @endforeach
@@ -85,7 +90,8 @@
                             <ul style="height: 400px;">
                                 @foreach($v->ad1 as $v1)
                                     <li>
-                                        <a target="_blank" href="{{$v1->ad_link}}"><img src="{{$v1->ad_code}}"/></a>
+                                        <a target="_blank" href="{{$v1->ad_link}}"><img class="ad"
+                                                                                        src="{{$v1->ad_code}}"/></a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -94,7 +100,8 @@
                             <ul>
                                 @foreach($v->ad2 as $v1)
                                     <li>
-                                        <a target="_blank" href="{{$v1->ad_link}}"><img src="{{$v1->ad_code}}"/></a>
+                                        <a target="_blank" href="{{$v1->ad_link}}"><img class="ad"
+                                                                                        src="{{$v1->ad_code}}"/></a>
                                     </li>
                                 @endforeach
                             </ul>
@@ -104,14 +111,14 @@
                     <ul class="Allul">
                         @foreach($v->ad3 as $v1)
                             <li>
-                                <a target="_blank" href="{{$v1->ad_link}}"><img src="{{$v1->ad_code}}"/></a>
+                                <a target="_blank" href="{{$v1->ad_link}}"><img class="ad" src="{{$v1->ad_code}}"/></a>
                             </li>
                         @endforeach
                     </ul>
                     @if(count($v->ad4)>0)
                         <div class="content_bot">
                             @foreach($v->ad4 as $v1)
-                                <a href="{{$v1->ad_link}}"><img src="{{$v1->ad_code}}"/></a>
+                                <a href="{{$v1->ad_link}}"><img class="ad" src="{{$v1->ad_code}}"/></a>
                             @endforeach
                         </div>
                     @endif
