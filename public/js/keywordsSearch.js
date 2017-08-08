@@ -16,6 +16,13 @@
             }
             /*end*/
         });
+        a('.fixed-search_btn').click(function () {
+            /*王成*/
+            if ($(this).prev().val() != "药品名称(拼音缩写)或厂家名称") {
+                location.href = '/goods?keywords=' + $(this).prev().val() + '&showi=0'
+            }
+            /*end*/
+        });
         a('#suggestions>li').live('mouseover', function () {
             var h = a(this).prevAll().length;
             b = h + 1;
@@ -134,6 +141,13 @@
         }
         ;
         a('.search_btn').click(function () {
+            /*王成*/
+            if ($(this).prev().val() != "药品名称(拼音缩写)或厂家名称") {
+                location.href = '/goods?keywords=' + $(this).prev().val() + '&showi=0'
+            }
+            /*end*/
+        });
+        a('.fixed-search_btn').click(function () {
             /*王成*/
             if ($(this).prev().val() != "药品名称(拼音缩写)或厂家名称") {
                 location.href = '/goods?keywords=' + $(this).prev().val() + '&showi=0'

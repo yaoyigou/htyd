@@ -49,6 +49,7 @@
     font-weight: bold;
     margin-left: -4px;
     *margin-left: -1px;
+    cursor: pointer;
 }
 
 .fixsearch .fixsearch-box .fixedsearch_box .search_show {

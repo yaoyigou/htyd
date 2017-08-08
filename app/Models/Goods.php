@@ -89,7 +89,7 @@ class Goods extends Model
         if ($v->goods_attr->where('attr_id', 213)->first()) {//促销信息
             $v->cxxx = trim($v->goods_attr->where('attr_id', 213)->first()->attr_value);
         }
-        $v->goods_url = route('goods.index', ['id' => $v->goods_id]);
+        $v->goods_url = route('goods.show', ['id' => $v->goods_id]);
         if ($v->erp_shangplx == '血液制品' || $v->erp_shangplx == '冷藏药品') {
             $v->is_zyyp = 2;
         }

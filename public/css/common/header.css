@@ -344,9 +344,6 @@
 .jkn_head_t_r li a{
 	color: #333;
 }
-.jkn_head_t_r li:hover a{
-	color: #316aef;
-}
 
 
 /*椤堕儴鍙宠竟鏍峰紡*/
@@ -807,4 +804,41 @@
 .hover_fankui a{
 	font-size: 14px;
 	color: white;
+}
+
+
+/*登录状态*/
+.UserId{
+	cursor:pointer;
+	color: #316aef;
+	padding: 0 10px;
+	border: 1px solid #f1f1f1;
+	border-bottom:none ;
+	position: relative;
+	z-index: 5;
+}
+/*4*/
+.my_jianke:hover a{
+	color: #316aef !important;
+}
+.userfunc li{
+	float: left;
+	width: 68px;
+	height: 28px;
+	background: #f4783c;
+	color: white;
+	text-align: center;
+	line-height: 28px;
+	border-right: 1px solid #e6e7e2;
+	margin-top: 7px;
+	margin-left: 0!important;
+}
+/*1*/
+.my_name-box .my_name {
+	padding: 4px 10px;
+	color: white;
+	border-radius: 5px;
+	background: #316aef;
+	font-weight: bold;
+
 }

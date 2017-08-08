@@ -72,7 +72,7 @@
                         </tr>
                     @endforelse
                 </table>
-                {!! $result->links('layouts.page',['show_num'=>2,'html2'=>'<div class="control">
+                {!! $result->links('layouts.page',['show_num'=>2,'html'=>'<div class="control">
                     <div class="con_left">
                         <input type="checkbox" id="" class="allselect check_all" onclick="check_all($(this))"/> 全选
                         <input type="button" id="" value="加入购物车" class="submit" onclick="plgm()"/>

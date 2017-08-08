@@ -59,71 +59,218 @@
             </div>
 
         </div>
-        <div style="width: 1200px;margin: 0 auto;">
-            <div class="slide_right">
-                @foreach($ad123 as $k=>$v)
-                    @if($k<2)
-                        <a href="{{$v->ad_link}}" @if($k==0) class="first_a" @endif>
-                            <img class="ad" src="{{$v->ad_code}}"/>
-                        </a>
-                    @endif
-                @endforeach
-            </div>
-        </div>
+        {{--<div style="width: 1200px;margin: 0 auto;">--}}
+        {{--<div class="slide_right">--}}
+        {{--@foreach($ad123 as $k=>$v)--}}
+        {{--@if($k<2)--}}
+        {{--<a href="{{$v->ad_link}}" @if($k==0) class="first_a" @endif>--}}
+        {{--<img class="ad" src="{{$v->ad_code}}"/>--}}
+        {{--</a>--}}
+        {{--@endif--}}
+        {{--@endforeach--}}
+        {{--</div>--}}
+        {{--</div>--}}
     </div>
     <div id="container">
         <div class="container-box">
-            @foreach($floors as $k=>$v)
-                <div class="chanpintuijian" id="demo{{$k}}">
-                    <div class="content_title">
-                        <div class="shaixuan">
-                            @foreach($v->child as $v1)
-                                <li @if($loop->first) class="on" @endif>{{$v1->cat_name}}@if(!$loop->last)<img
-                                            src="{{path('images/index/shu.jpg')}}"/>@endif</li>
-                            @endforeach
-                        </div>
-                        <img src="{{path('images/index/title_left.jpg')}}"/><span>{{$k+1}}F</span><img
-                                src="{{path('images/index/title_right.jpg')}}"/><span>{{$v->cat_name}}</span>
-                    </div>
-                    <div class="wrapper1">
-                        <div id="focus{{$k+1}}" class="focus">
-                            <ul style="height: 400px;">
-                                @foreach($v->ad1 as $v1)
-                                    <li>
-                                        <a target="_blank" href="{{$v1->ad_link}}"><img class="ad"
-                                                                                        src="{{$v1->ad_code}}"/></a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        <div class="img_box">
-                            <ul>
-                                @foreach($v->ad2 as $v1)
-                                    <li>
-                                        <a target="_blank" href="{{$v1->ad_link}}"><img class="ad"
-                                                                                        src="{{$v1->ad_code}}"/></a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-
-                    <ul class="Allul">
-                        @foreach($v->ad3 as $v1)
-                            <li>
-                                <a target="_blank" href="{{$v1->ad_link}}"><img class="ad" src="{{$v1->ad_code}}"/></a>
-                            </li>
+            <div class="chanpintuijian" id="demo0">
+                <div class="content_title">
+                    <div class="shaixuan">
+                        @foreach($floor1 as $v)
+                            <li @if($loop->first) class="on" @endif>{{$v->cat_name}}@if(!$loop->last)<img
+                                        src="{{path('images/index/shu.jpg')}}"/>@endif</li>
                         @endforeach
-                    </ul>
-                    @if(count($v->ad4)>0)
-                        <div class="content_bot">
-                            @foreach($v->ad4 as $v1)
-                                <a href="{{$v1->ad_link}}"><img class="ad" src="{{$v1->ad_code}}"/></a>
-                            @endforeach
-                        </div>
-                    @endif
+                    </div>
+                    <img src="{{path('images/index/title_left.jpg')}}"/><span>1F</span><img
+                            src="{{path('images/index/title_right.jpg')}}"/><span>新品上架</span>
                 </div>
-            @endforeach
+                <div class="wrapper1">
+                    <div id="focus1" class="focus">
+                        <ul style="height: 400px;">
+                            @foreach($ad126 as $v)
+                                <li>
+                                    <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
+                                                                                   src="{{$v->ad_code}}"/></a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="img_box">
+                        <ul>
+                            @foreach($ad126 as $v)
+                                <li>
+                                    <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
+                                                                                   src="{{$v->ad_code}}"/></a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+
+                <ul class="Allul">
+                    @foreach($ad127 as $v)
+                        <li>
+                            <a target="_blank" href="{{$v->ad_link}}"><img class="ad" src="{{$v->ad_code}}"/></a>
+                        </li>
+                    @endforeach
+                </ul>
+                @if(count($ad128)>0)
+                    <div class="content_bot">
+                        @foreach($ad128 as $v)
+                            <a href="{{$v->ad_link}}"><img class="ad" src="{{$v->ad_code}}"/></a>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+            <div class="chanpintuijian" id="demo1">
+                <div class="content_title">
+                    <div class="shaixuan">
+                        @foreach($floor2 as $v)
+                            <li @if($loop->first) class="on" @endif>{{$v->cat_name}}@if(!$loop->last)<img
+                                        src="{{path('images/index/shu.jpg')}}"/>@endif</li>
+                        @endforeach
+                    </div>
+                    <img src="{{path('images/index/title_left.jpg')}}"/><span>2F</span><img
+                            src="{{path('images/index/title_right.jpg')}}"/><span>保健器械</span>
+                </div>
+                <div class="wrapper1">
+                    <div id="focus2" class="focus">
+                        <ul style="height: 400px;">
+                            @foreach($ad129 as $v)
+                                <li>
+                                    <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
+                                                                                   src="{{$v->ad_code}}"/></a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="img_box">
+                        <ul>
+                            @foreach($ad129 as $v)
+                                <li>
+                                    <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
+                                                                                   src="{{$v->ad_code}}"/></a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+
+                <ul class="Allul">
+                    @foreach($ad130 as $v)
+                        <li>
+                            <a target="_blank" href="{{$v->ad_link}}"><img class="ad" src="{{$v->ad_code}}"/></a>
+                        </li>
+                    @endforeach
+                </ul>
+                @if(count($ad131)>0)
+                    <div class="content_bot">
+                        @foreach($ad131 as $v)
+                            <a href="{{$v->ad_link}}"><img class="ad" src="{{$v->ad_code}}"/></a>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+            <div class="chanpintuijian" id="demo2">
+                <div class="content_title">
+                    <div class="shaixuan">
+                        @foreach($floor3 as $v)
+                            <li @if($loop->first) class="on" @endif>{{$v->cat_name}}@if(!$loop->last)<img
+                                        src="{{path('images/index/shu.jpg')}}"/>@endif</li>
+                        @endforeach
+                    </div>
+                    <img src="{{path('images/index/title_left.jpg')}}"/><span>3F</span><img
+                            src="{{path('images/index/title_right.jpg')}}"/><span>美妆护理</span>
+                </div>
+                <div class="wrapper1">
+                    <div id="focus3" class="focus">
+                        <ul style="height: 400px;">
+                            @foreach($ad133 as $v)
+                                <li>
+                                    <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
+                                                                                   src="{{$v->ad_code}}"/></a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="img_box">
+                        <ul>
+                            @foreach($ad133 as $v)
+                                <li>
+                                    <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
+                                                                                   src="{{$v->ad_code}}"/></a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+
+                <ul class="Allul">
+                    @foreach($ad134 as $v)
+                        <li>
+                            <a target="_blank" href="{{$v->ad_link}}"><img class="ad" src="{{$v->ad_code}}"/></a>
+                        </li>
+                    @endforeach
+                </ul>
+                @if(count($ad135)>0)
+                    <div class="content_bot">
+                        @foreach($ad135 as $v)
+                            <a href="{{$v->ad_link}}"><img class="ad" src="{{$v->ad_code}}"/></a>
+                        @endforeach
+                    </div>
+                @endif
+            </div>
+            {{--@foreach($floors as $k=>$v)--}}
+            {{--<div class="chanpintuijian" id="demo{{$k}}">--}}
+            {{--<div class="content_title">--}}
+            {{--<div class="shaixuan">--}}
+            {{--@foreach($v->child as $v1)--}}
+            {{--<li @if($loop->first) class="on" @endif>{{$v1->cat_name}}@if(!$loop->last)<img--}}
+            {{--src="{{path('images/index/shu.jpg')}}"/>@endif</li>--}}
+            {{--@endforeach--}}
+            {{--</div>--}}
+            {{--<img src="{{path('images/index/title_left.jpg')}}"/><span>{{$k+1}}F</span><img--}}
+            {{--src="{{path('images/index/title_right.jpg')}}"/><span>{{$v->cat_name}}</span>--}}
+            {{--</div>--}}
+            {{--<div class="wrapper1">--}}
+            {{--<div id="focus{{$k+1}}" class="focus">--}}
+            {{--<ul style="height: 400px;">--}}
+            {{--@foreach($v->ad1 as $v1)--}}
+            {{--<li>--}}
+            {{--<a target="_blank" href="{{$v1->ad_link}}"><img class="ad"--}}
+            {{--src="{{$v1->ad_code}}"/></a>--}}
+            {{--</li>--}}
+            {{--@endforeach--}}
+            {{--</ul>--}}
+            {{--</div>--}}
+            {{--<div class="img_box">--}}
+            {{--<ul>--}}
+            {{--@foreach($v->ad2 as $v1)--}}
+            {{--<li>--}}
+            {{--<a target="_blank" href="{{$v1->ad_link}}"><img class="ad"--}}
+            {{--src="{{$v1->ad_code}}"/></a>--}}
+            {{--</li>--}}
+            {{--@endforeach--}}
+            {{--</ul>--}}
+            {{--</div>--}}
+            {{--</div>--}}
+
+            {{--<ul class="Allul">--}}
+            {{--@foreach($v->ad3 as $v1)--}}
+            {{--<li>--}}
+            {{--<a target="_blank" href="{{$v1->ad_link}}"><img class="ad" src="{{$v1->ad_code}}"/></a>--}}
+            {{--</li>--}}
+            {{--@endforeach--}}
+            {{--</ul>--}}
+            {{--@if(count($v->ad4)>0)--}}
+            {{--<div class="content_bot">--}}
+            {{--@foreach($v->ad4 as $v1)--}}
+            {{--<a href="{{$v1->ad_link}}"><img class="ad" src="{{$v1->ad_code}}"/></a>--}}
+            {{--@endforeach--}}
+            {{--</div>--}}
+            {{--@endif--}}
+            {{--</div>--}}
+            {{--@endforeach--}}
         </div>
         <!-- app扫描结束 -->
         <!-- 弹出层结束 -->

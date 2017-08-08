@@ -1,6 +1,7 @@
-{!! $html1 or '' !!}
+@if($paginator->total()>0)
+    {!! $html or '' !!}
+@endif
 @if ($paginator->hasPages())
-    {!! $html2 or '' !!}
     @push('header')
     <link href="{{path('css/common/page.css')}}" rel="stylesheet" type="text/css"/>
     @endpush

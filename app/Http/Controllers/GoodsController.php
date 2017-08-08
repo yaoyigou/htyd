@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Common\Page;
 use App\Models\Category;
 use App\Models\Goods;
+use App\Models\GoodsGallery;
 use App\Models\KxpzPrice;
 use Illuminate\Http\Request;
 
@@ -55,7 +56,6 @@ class GoodsController extends Controller
             'cat_c' => [],
             'jx'    => [],
         ];
-        $lists      = [];
         if (!empty($keywords)) {
             $query->where(function ($where) use ($keywords) {
                 $where->where('goods_name', 'like', '%' . $keywords . '%')
@@ -64,7 +64,9 @@ class GoodsController extends Controller
             });
         } else {
             $filter_category = $category->get_filter_category();
+            $cat_ids         = [];
             if ($cat_id > 0) {
+                $cat_ids[]              = $cat_id;
                 $cat_info               = $filter_category->where('cat_id', $cat_id)->first();
                 $cat_p                  = $filter_category->where('parent_id', $cat_info->parent_id)
                     ->pluck('cat_name', 'cat_id');
@@ -89,6 +91,13 @@ class GoodsController extends Controller
             } else {
                 $cat_c               = $filter_category->where('parent_id', 0);
                 $filter_arr['cat_c'] = $cat_c;
+            }
+            if (count($cat_ids) > 0) {
+                $query->where(function ($query) use ($cat_ids) {
+                    foreach ($cat_ids as $v) {
+                        $query->orwhere('cat_ids', 'like', '%' . $v . '%');
+                    }
+                });
             }
         }
         if (!empty($ypgg)) {
@@ -131,9 +140,9 @@ class GoodsController extends Controller
             $v = $this->model->attr($v, $this->user);
         }
         $request->offsetSet('style', $style);
-        $inputs                     = $request->all();
-        $result                     = $this->add_params($result, $inputs);
-        $sort_arr                   = [
+        $inputs                 = $request->all();
+        $result                 = $this->add_params($result, $inputs);
+        $sort_arr               = [
             'sort_order',
             'click_count',
             'sales_volume',
@@ -141,9 +150,15 @@ class GoodsController extends Controller
             'product_name',
             'shop_price',
         ];
-        $result->sort               = $this->sort_arr($result->url($result->currentPage()), $sort_arr);
-        $weeksale                   = xl_top(strtotime('-7 days'));
-        $this->assign['result']     = $result;
+        $result->sort           = $this->sort_arr($result->url($result->currentPage()), $sort_arr);
+        $weeksale               = xl_top(strtotime('-7 days'));
+        $this->assign['result'] = $result;
+        if (count($result) == 0) {
+            $where                = function ($query) {
+                $query->where('is_wntj', 1);
+            };
+            $this->assign['wntj'] = $this->model->goods_list($this->user, 15, $where);
+        }
         $this->assign['inputs']     = $request->all();
         $this->assign['filter_arr'] = $filter_arr;
         $this->assign['week_sale']  = $weeksale;
@@ -392,5 +407,20 @@ class GoodsController extends Controller
         }
         return $ids;
 
+    }
+
+    public function show($id)
+    {
+        $info = $this->model->find($id);
+        if (!$info) {
+            tips('商品不存在');
+        }
+        $info->load('goods_attr', 'member_price');
+        $info                      = $this->model->attr($info, $this->user);
+        $img                       = GoodsGallery::where('goods_id', $info->goods_id)->get();
+        $this->assign['info']      = $info;
+        $this->assign['img']       = $img;
+        $this->assign['weekSales'] = xl_top(strtotime('-7 days'));
+        return view('goods.show', $this->assign);
     }
 }

@@ -309,7 +309,7 @@
                                     {{--成交量：<span>{{$v->num}}</span>--}}
                                     {{--</div>--}}
                                     <div class="paihang-img">
-                                        <a href="{{route('goods.index',['id'=>$v->goods_id])}}"><img
+                                        <a href="{{route('goods.show',['id'=>$v->goods_id])}}"><img
                                                     style="height: 100%;" src="{{$v->goods_thumb}}"/></a>
                                     </div>
                                     <div class="paihang-name">
@@ -327,11 +327,11 @@
                                     <li>
                                         <span>{{$k+1}}</span>
                                         <div class="hover-before">
-                                            <a href="{{route('goods.index',['id'=>$v->goods_id])}}">{{$v->goods_name}}</a>
+                                            <a href="{{route('goods.show',['id'=>$v->goods_id])}}">{{$v->goods_name}}</a>
                                             <span class="ke">{{$v->ypgg}}</span>
                                         </div>
                                         <div class="hover-after">
-                                            <a href="{{route('goods.index',['id'=>$v->goods_id])}}"><img
+                                            <a href="{{route('goods.show',['id'=>$v->goods_id])}}"><img
                                                         src="{{$v->goods_thumb}}"/></a>
                                             <p class="hover-name">{{$v->goods_name}}</p>
                                             <p class="hover-guige">{{$v->ypgg}}</p>
@@ -369,7 +369,7 @@
                                                     <div class="wntj-cp">
                                                         <div class="wntj-img-box">
                                                             <a target="_blank"
-                                                               href="{{route('goods.index',['id'=>$v->goods_id])}}"><img
+                                                               href="{{route('goods.show',['id'=>$v->goods_id])}}"><img
                                                                         style="width: 100%" src="{{$v->goods_thumb}}"/></a>
                                                         </div>
                                                         <p>{{$v->goods_name}}</p>
@@ -387,7 +387,7 @@
                                                         <div class="wntj-cp">
                                                             <div class="wntj-img-box">
                                                                 <a target="_blank"
-                                                                   href="{{route('goods.index',['id'=>$v->goods_id])}}"><img
+                                                                   href="{{route('goods.show',['id'=>$v->goods_id])}}"><img
                                                                             style="width: 100%"
                                                                             src="{{$v->goods_thumb}}"/></a>
                                                             </div>
@@ -407,7 +407,7 @@
                                                         <div class="wntj-cp">
                                                             <div class="wntj-img-box">
                                                                 <a target="_blank"
-                                                                   href="{{route('goods.index',['id'=>$v->goods_id])}}"><img
+                                                                   href="{{route('goods.show',['id'=>$v->goods_id])}}"><img
                                                                             style="width: 100%"
                                                                             src="{{$v->goods_thumb}}"/></a>
                                                             </div>

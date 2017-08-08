@@ -17,7 +17,7 @@
                 </div>
             </div>
 
-            <a href="{{route('cart.index')}}">
+            <a href="javascript:;">
                 <div class="gouwuche" style="float: right;">
                     <img style="margin-top: -5px;" src="{{path('images/index/gouwuche.png')}}"/> 购物车
                     <span style="color: red;">(0)</span>

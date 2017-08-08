@@ -21,6 +21,17 @@ class Category extends Model
         return $category;
     }
 
+    public function get_floor($grade, $num = 0)
+    {
+        $query = self::where('is_show', 1)
+            ->where('grade', $grade);
+        if ($num > 0) {
+            $query->take($num);
+        }
+        $category = $query->orderBy('sort_order', 'desc')->get();
+        return $category;
+    }
+
     public function get_filter_category()
     {
         $query    = self::where('is_show', 1);

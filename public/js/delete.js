@@ -11,6 +11,9 @@ function delete_cz(obj) {
             dataType: 'json',
             success: function (data) {
                 if (data.error == 0) {
+                    if ($('.id_check').length == 1) {
+                        location.reload()
+                    }
                     $(obj).parents("tr").remove();
                 }
                 layer.msg(data.msg, {icon: parseInt(data.error) + 1, time: 1000});

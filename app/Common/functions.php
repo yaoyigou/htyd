@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Cache;
 if (!function_exists('shop_config')) {
     function shop_config($code)
     {
-        return Cache::tags('shop', 'config')->rememberForever($code, function () use ($code) {
+        return Cache::tags('shop_config')->rememberForever($code, function () use ($code) {
             return ShopConfig::where('code', $code)->value('value');
         });
     }
@@ -43,7 +43,7 @@ if (!function_exists('get_ads')) {
             $model = new \App\Models\Ad();
             $list  = $model->get_ads($position_id, $num);
         } else {
-            $list = \Illuminate\Support\Facades\Cache::tags('ads', date('Ymd'))
+            $list = \Illuminate\Support\Facades\Cache::tags(['ads', date('Ymd')])
                 ->rememberForever($position_id, function () use ($position_id, $num) {
                     $model = new \App\Models\Ad();
                     $list  = $model->get_ads($position_id, $num);
@@ -69,7 +69,7 @@ if (!function_exists('get_category')) {
                 }
             ]);
         } else {
-            $list = \Illuminate\Support\Facades\Cache::tags('category')
+            $list = \Illuminate\Support\Facades\Cache::tags(['category', 'show_in_nav'])
                 ->rememberForever(1,
                     function () {
                         $model = new \App\Models\Category();
@@ -87,35 +87,19 @@ if (!function_exists('get_category')) {
 }
 
 if (!function_exists('get_floors')) {
-    function get_floors($cache = 1)
+    function get_floor($grade, $cache = 1)
     {
         if ($cache == 0) {
             $model = new \App\Models\Category();
-            $list  = $model->get_category(2);
-            $list->load([
-                'child' => function ($query) {
-                    $query->where('show_in_nav', 2)->where('is_show', 1);
-                }
-            ]);
+            $list  = $model->get_floor($grade);
         } else {
-            $list = \Illuminate\Support\Facades\Cache::tags('category')
-                ->rememberForever(2,
-                    function () {
+            $list = \Illuminate\Support\Facades\Cache::tags(['category', 'floor'])
+                ->rememberForever($grade,
+                    function () use ($grade) {
                         $model = new \App\Models\Category();
-                        $list  = $model->get_category(2);
-                        $list->load([
-                            'child' => function ($query) {
-                                $query->where('show_in_nav', 2)->where('is_show', 1);
-                            }
-                        ]);
+                        $list  = $model->get_floor($grade);
                         return $list;
                     });
-        }
-        foreach ($list as $v) {
-            $v->ad1 = get_ads($v->filter_attr[0]);
-            $v->ad2 = get_ads($v->filter_attr[0]);
-            $v->ad3 = get_ads($v->filter_attr[1]);
-            $v->ad4 = get_ads($v->filter_attr[2]);
         }
         return $list;
     }
@@ -297,7 +281,7 @@ if (!function_exists('get_region_list')) {
         $region = Cache::rememberForever('region', function () {
             return \App\Models\Region::all();
         });
-        $result = $region->where('parent_id', 1)->pluck('region_name', 'region_id');
+        $result = $region->where('parent_id', $parent_id)->pluck('region_name', 'region_id');
         return $result;
     }
 }

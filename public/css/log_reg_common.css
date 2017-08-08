@@ -1,0 +1,87 @@
+/*蕁狗���桁�鏁�紮�*/
+
+.site-header {
+	height: 118px;
+	line-height: 118px;
+	min-width: 1200px;
+	overflow: hidden;
+	width: 100%;
+}
+
+.header-box {
+	width: 1200px;
+	height: 118px;
+	margin: 0 auto;
+}
+
+.header-box .logo {
+	margin: 20px 0 0 120px;
+	float: left;
+	*margin:0 0 0 120px;
+}
+
+.site-header .dl {
+	font-size: 24px;
+	color: #0a3875;
+	width: 110px;
+	height: 32px;
+	float: left;
+	margin-left: 20px;
+}
+.site-header .right{
+	float: right;
+}
+.site-header .right a{
+	color: #666;
+	font-size: 14px;
+	margin:0 20px
+}
+/*綺����桁��*/
+
+.site-footer {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.footer-container {
+	text-align: center;
+}
+
+.footer-container .title a {
+	color: #333;
+	padding: 0 15px;
+	line-height: 34px;
+}
+
+.footer-container a.btn_ico {
+	margin-top: 15px;
+	display: block;
+}
+
+label {
+	display: block;
+}
+
+#remember {
+	cursor: pointer;
+}
+
+.footer_box {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.footer_bottom {
+	text-align: center;
+}
+
+.footer_bottom .title a {
+	color: #333;
+	padding: 0 10px;
+	line-height: 34px;
+}
+
+.footer_bottom a.btn_ico {
+	margin-top: 15px;
+	display: block;
+}

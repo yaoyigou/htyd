@@ -9,7 +9,6 @@ use App\Models\Goods;
 use App\Models\OrderInfo;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -20,7 +19,6 @@ class UserController extends Controller
 
     public function __construct(User $model)
     {
-        Auth::loginUsingId(15988);
         $this->set($model);
     }
 
@@ -109,10 +107,5 @@ class UserController extends Controller
             }
         }
         return 0;
-    }
-
-    public function logout()
-    {
-        Auth::logout();
     }
 }

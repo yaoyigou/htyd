@@ -43,29 +43,29 @@
                 </li>
             </ul>
         </div>
-        <div class="right">
-            <ul>
-                <li>
-                    <a target="_blank" href="https://v.pinpaibao.com.cn/cert/site/?site=www.hezongyy.com&at=realname">
-                        <img src="http://www.hezongyy.com/new/images/shiming_11.png?20170502"/>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://www.hezongyy.com/new/images/beian_11.png?20170502"/>
-                    </a>
-                </li>
-                <li>
-                    <a target="_blank" href="https://credit.cecdc.com/CX20150626010878010620.html">
-                        <img src="http://www.hezongyy.com/new/images/chengxin_11.png?20170502"/>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <img src="http://www.hezongyy.com/new/images/360_11.png?20170502"/>
-                    </a>
-                </li>
-            </ul>
-        </div>
+        {{--<div class="right">--}}
+            {{--<ul>--}}
+                {{--<li>--}}
+                    {{--<a target="_blank" href="https://v.pinpaibao.com.cn/cert/site/?site=www.hezongyy.com&at=realname">--}}
+                        {{--<img src="http://www.hezongyy.com/new/images/shiming_11.png?20170502"/>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+                {{--<li>--}}
+                    {{--<a href="#">--}}
+                        {{--<img src="http://www.hezongyy.com/new/images/beian_11.png?20170502"/>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+                {{--<li>--}}
+                    {{--<a target="_blank" href="https://credit.cecdc.com/CX20150626010878010620.html">--}}
+                        {{--<img src="http://www.hezongyy.com/new/images/chengxin_11.png?20170502"/>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+                {{--<li>--}}
+                    {{--<a href="#">--}}
+                        {{--<img src="http://www.hezongyy.com/new/images/360_11.png?20170502"/>--}}
+                    {{--</a>--}}
+                {{--</li>--}}
+            {{--</ul>--}}
+        {{--</div>--}}
     </div>
 </div>

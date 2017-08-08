@@ -1,16 +1,16 @@
 <div class="fix_right">
     <ul>
         <li>
-            <a href="#"><img src="{{path('images/index/fixed_1.png')}}"/></a>
+            <a href="{{route('user.index')}}"><img src="{{path('images/index/fixed_1.png')}}"/></a>
         </li>
         <li style="line-height:30px;">
-            <a href="#">
-                <div class="num">22</div>
+            <a href="javascript:;">
+                <div class="num">0</div>
                 <img src="{{path('images/index/fixed_2.png')}}" class="num_img"/>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="{{route('collect_goods.index')}}">
                 <img src="{{path('images/index/fixed_3.png')}}"/>
             </a>
         </li>
