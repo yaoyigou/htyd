@@ -92,12 +92,12 @@
                                     class="name">{{$address->consignee}}</span> <span>收</span>)
                         </p>
                         <p class="msg">
-                            <span class="title_name">手机：</span> <span class="text">{{$address->tel}}</span>
+                            <span class="title_name">手机：</span> <span class="text">{{$address->mobile}}</span>
                             <span class="title_name">电子邮件地址：</span> <span class="text">{{$address->email}}</span>
                             @if($address->zipcode)<span class="title_name">邮政编码：</span> <span
                                     class="text">{{$address->zipcode}}</span>@endif
                             @if($address->mobile)<span class="title_name">电话：</span> <span
-                                    class="text">{{$address->mobile}}</span>@endif
+                                    class="text">{{$address->tel}}</span>@endif
                             @if($address->best_time)<span class="title_name">最佳送货时间：</span> <span
                                     class="text">{{$address->best_time}}</span>@endif
                         </p>
@@ -169,7 +169,7 @@
                             </label>
                             <span style="color: #e70000;">(如果选择了增值税专用发票，请下载开增值税专票需要信息，填好信息后打印盖上公章截图给客服人员。)</span>
                             {{--<a href="/uploads/开增值税专票需要信息.doc"--}}
-                               {{--style="padding: 1px 10px;color:#fff;background-color: #39A817;margin-left: 30px;border-radius: 5px;">下载</a>--}}
+                            {{--style="padding: 1px 10px;color:#fff;background-color: #39A817;margin-left: 30px;border-radius: 5px;">下载</a>--}}
                         </p>
                     </td>
                 </tr>
