@@ -209,18 +209,17 @@
                             {{--<!-- {/if} --></span>--}}
                         </td>
                     </tr>
-                    @if($info->is_mhj==0&&$info->order_amount>0&&$info->is_zq==0&&$info->jnmj==0&&$info->is_separate==0)
+                    @if($info->is_mhj==0&&$info->order_amount>0)
                         <tr>
                             <td class="al_right com">
-                                <form action="{{route('user.useSurplus')}}" method="post" name="formFee" id="formFee">
+                                @component('component.form',['action'=>route('order.update',['id'=>$info->order_id]),'method'=>'put'])
                                     追加使用余额:
                                     <input name="surplus" type="text" size="8" value="0"
                                            style="border:1px solid #ccc;"/>（您的帐户余额：{{formated_price($user->user_money)}}
                                     ）
                                     <input type="submit" name="Submit" class="submit_1" value="确定"/>
                                     <input type="hidden" name="orderId" value="{{$info->order_id}}"/>
-                                    {!! csrf_field() !!}
-                                </form>
+                                @endcomponent
                             </td>
                         </tr>
                     @endif

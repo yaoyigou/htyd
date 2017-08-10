@@ -2,7 +2,7 @@
 @push('header')
 <link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{path('css/cart.css')}}" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="{{path('js/common.js')}}"></script>
+<script type="text/javascript" src="{{path('js/delete.js')}}"></script>
 <script type="text/javascript" src="{{path('js/flow_cart.js')}}"></script>
 <script type="text/javascript" src="{{path('js/slides.jquery.js')}}"></script>
 <style>
@@ -327,7 +327,8 @@
                             <td class="tb2_td11"
                                 id="subtotal_{{$v->rec_id}}">{{formated_price($v->goods_number*$v->goods->real_price)}}</td>
                             <td class="tb2_td12">
-                                <p><a class="del">删除</a></p>
+                                <p><a onclick="delete_cz($(this))" title="从购物车删除该商品" method="delete"
+                                      url="{{route('cart.destroy',['id'=>$v->rec_id])}}" class="del">删除</a></p>
                                 @if(Auth::check())
                                     <p><a class="collect">移到收藏</a></p>
                                 @endif

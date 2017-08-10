@@ -16,10 +16,10 @@
             </div>
 
         </div>
-        <a href="http://www.hezongyy.com/cart">
+        <a href="{{route('cart.index')}}">
             <div class="fixed-gouwuche">
                 <img src="{{path('images/index/gouwuche.png')}}"/> 购物车
-                <span style="color: red;">(0)</span>
+                <span style="color: red;">({{cart_num()}})</span>
             </div>
         </a>
 

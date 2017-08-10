@@ -80,10 +80,10 @@
                                     {!! order_status($v->order_id,$v->order_status,$v->pay_status,$v->shipping_status,'handle') !!}
                                     <a href="{{route('order.show',['id'=>$v->order_id])}}"
                                        class="f6">查看订单</a>
-                                    @if($v->mobile_pay<=1)
-                                        <a href=""
-                                           class="f6">再次购买</a>
-                                    @endif
+                                    {{--@if($v->mobile_pay<=1)--}}
+                                        {{--<a href=""--}}
+                                           {{--class="f6">再次购买</a>--}}
+                                    {{--@endif--}}
                                 </td>
                             </tr>
                         @endforeach

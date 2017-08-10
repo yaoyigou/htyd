@@ -4,8 +4,8 @@
             <a href="{{route('user.index')}}"><img src="{{path('images/index/fixed_1.png')}}"/></a>
         </li>
         <li style="line-height:30px;">
-            <a href="javascript:;">
-                <div class="num">0</div>
+            <a href="{{route('cart.index')}}">
+                <div class="num">{{cart_num()}}</div>
                 <img src="{{path('images/index/fixed_2.png')}}" class="num_img"/>
             </a>
         </li>

@@ -173,7 +173,10 @@ if (!function_exists('xl_top')) {
         $result = Cache::tags('goods')->remember($tag, 60 * 24, function () use ($time, $num) {
             $order_id = OrderInfo::where('add_time', '>', $time)
                 ->orderBy('order_id', 'asc')->value('order_id');
-            $result   = DB::table('order_goods as og')
+            if (!$order_id) {
+                return [];
+            }
+            $result = DB::table('order_goods as og')
                 ->leftJoin('order_info as oi', 'og.order_id', '=', 'oi.order_id')
                 ->leftJoin('goods as g', 'g.goods_id', '=', 'og.goods_id')
                 ->where('og.order_id', '>=', $order_id)->where('oi.order_status', 1)
@@ -375,4 +378,19 @@ if (!function_exists('ss')) {
             return '未知状态';
         }
     }
+}
+
+if (!function_exists('cart_num')) {
+    function cart_num()
+    {
+        $cart_info = 0;
+        if (auth()->check()) {
+            $user      = auth()->user();
+            $cart_info = \App\Models\Cart::where('user_id', $user->user_id)
+                ->where('goods_id', '!=', 0)->count('rec_id');
+            Cache::tags($user->user_id)->forever('cart_num', $cart_info);
+        }
+        return $cart_info;
+    }
+
 }

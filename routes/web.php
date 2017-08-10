@@ -32,11 +32,15 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('zncg', 'UserController@zncg')->name('user.zncg');
     Route::get('account_log', 'UserController@account_log')->name('user.account_log');
+    Route::get('profile', 'UserController@profile')->name('user.profile');
+    Route::get('pswl', 'UserController@pswl')->name('user.pswl');
     Route::get('logout', 'Auth\LoginController@logout')->name('user.logout');
-    Route::resource('user', 'UserController', ['only' => ['index', 'show', 'update']]);
+    Route::put('user', 'UserController@update')->name('user.update');
+    Route::resource('user', 'UserController', ['only' => ['index']]);
     Route::get('cart/choose', 'CartController@choose');
     Route::get('cart/jiesuan', 'CartController@jiesuan')->name('cart.jiesuan');
     Route::post('cart/addNum', 'CartController@addNum');
     Route::resource('cart', 'CartController');
     Route::resource('address', 'AddressController');
+    Route::get('get_region_list', 'CommonController@get_region_list')->name('get_region_list');
 });

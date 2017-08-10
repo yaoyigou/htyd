@@ -1,7 +1,7 @@
 .top_title{height: 34px;border-bottom: 1px solid #e4e4e4;margin-bottom: 20px; position: relative;line-height: 34px;}
 .top_title h3{color: #3ebb2b;padding-left: 10px;width: 110px;float: left;}
 .top_title .ico{width: 8px;height: 8px;background: url(../images/yonghuzhongxin04.jpg) no-repeat; left: 30px;bottom: -8px;position: absolute;}
-.main_right1{width: 984px;float: right;overflow: hidden}
+.main_right1{width: 984px;float: right;}
 .top_title .right_box{float: right;color: #0066cc;}
 .top_title2{margin-top: 10px;}
 /*用户中心左侧导航开始*/

@@ -27,11 +27,14 @@ class CollectGoods extends Model
      */
     public function collect_near($user, $num)
     {
-        $ids    = static::where('user_id', $user->user_id)->where('goods_id', '>', 0)
-            ->orderBy('add_time', 'desc')->take($num)->pluck('goods_id');
-        $result = Goods::with('goods_attr', 'member_price')->whereIn('goods_id', $ids)->get();
+        $result = self::with([
+            'goods' => function ($query) {
+                $query->with('goods_attr', 'member_price');
+            }
+        ])->where('user_id', $user->user_id)->where('goods_id', '>', 0)
+            ->orderBy('add_time', 'desc')->take($num)->get();
         foreach ($result as $v) {
-            $v = $v->attr($v, $user);
+            $v->goods = $v->goods->attr($v->goods, $user);
         }
         return $result;
     }

@@ -2,7 +2,7 @@
 @push('header')
 <link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{path('css/member2.css')}}" rel="stylesheet" type="text/css"/>
-<link href="{{path('css/balance2.css')}}" rel="stylesheet" type="text/css"/>
+<link href="{{path('css/user_message2.css')}}" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="{{path('js/nav.js')}}"></script>
 @endpush
 @section('content')
@@ -18,15 +18,13 @@
                     我的账号
                 @endslot
                 @slot('title2')
-                    {{route('user.show',['id'=>$user->user_id])}}
+                    {{route('user.profile')}}
                 @endslot
                 @slot('title3')
                     基本信息
                 @endslot
                 <div class="content">
-                    <form name="formEdit" action="{{route('user.update',['id'=>$user->user_id])}}" method="put"
-                          enctype="multipart/form-data">
-                        {!! csrf_field() !!}
+                    @component('component.form',['action'=>route('user.update'),'method'=>'put','file'=>true])
                         <table>
                             <tr>
                                 <td class="title">出生日期：</td>
@@ -89,9 +87,9 @@
                                 </td>
                             </tr>
                         </table>
-                    </form>
-                    <form name="formPassword" action="{{route('user.update',['id'=>$user->user_id])}}" method="put">
-                        {!! csrf_field() !!}
+                        <input type="hidden" name="act" value="profile"/>
+                    @endcomponent
+                    @component('component.form',['action'=>route('user.update'),'method'=>'put'])
                         <table class="table2">
                             <tr>
                                 <td class="title">原密码：</td>
@@ -117,8 +115,8 @@
                                 </td>
                             </tr>
                         </table>
-
-                    </form>
+                        <input type="hidden" name="act" value="password"/>
+                    @endcomponent
                 </div>
             @endcomponent
             @include('layouts.user_menu')

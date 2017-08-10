@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Common\Page;
 use App\Models\Cart;
 use App\Models\Goods;
+use App\Models\Payment;
 use App\Models\Shipping;
 use App\Models\UserAddress;
 use Illuminate\Http\Request;
@@ -334,9 +335,21 @@ class CartController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
-        //
+        $act = trim($request->input('act', ''));
+        switch ($act) {
+            case 'plsc':
+                break;
+            default:
+                $info = $this->model->where('user_id', $this->user->user_id)->find($id);
+                if (!$info) {
+                    tips('没有权限这样做', 1);
+                }
+                $info->delete();
+                break;
+        }
+        tips('删除成功');
     }
 
     private function final_num($xg_num, $jzl, $zbz, $goods_number, $buy_number, $type = 0)
@@ -465,8 +478,8 @@ class CartController extends Controller
     public function jiesuan(Goods $goods, Shipping $shipping)
     {
         $addressId = $this->user->address_id;
-        $rec_ids   = Cache::tags([$this->user->user_id, 'cart'])->get('cart_list');
-        $result    = $this->model->get_cart_goods($this->user);
+        $rec_ids   = Cache::tags($this->user->user_id)->get('cart_list');
+        $result    = $this->model->get_cart_goods($this->user, $rec_ids);
         if (!$rec_ids) {
             return redirect()->route('cart.index');
         }
@@ -504,21 +517,20 @@ class CartController extends Controller
         }
         if (!$address) {
             return redirect()->route('address.create');
-        } else {
+        } elseif ($address->address_id !== $this->user->address_id) {
             $this->user->address_id = $address->address_id;
             $this->user->save();
         }
         $ids       = [$address->province, $address->city, $address->district];
         $area_name = get_region_name($ids, ' ');
-        //运费
-        $shipping_id = $this->user->shipping_id;
         //物流
+        $shipping_list = [];
         if ($this->user->shipping_id == 0) {
-            $shipping                 = $shipping->shipping_list([$this->user->country, $this->user->province, $this->user->city, $this->user->district]);
-            $this->assign['shipping'] = $shipping;
+            $shipping_list = $shipping->shipping_list([$this->user->country, $this->user->province, $this->user->city, $this->user->district]);
         }
+        $this->assign['shipping_list'] = $shipping_list;
         //支付方式
-        //$payment = Payment::where('enabled', 1)->select('pay_id', 'pay_name', 'pay_desc', 'is_cod')->orderBy('pay_order', 'desc')->get();
+        $payment = Payment::where('enabled', 1)->select('pay_id', 'pay_name', 'pay_desc', 'is_cod')->orderBy('pay_order', 'desc')->get();
 
         /**
          * 活动相关结束
@@ -527,12 +539,20 @@ class CartController extends Controller
         /**
          * 判断是否能使用账期
          */
+        $shipping_fee                 = 0;
+        $total                        = $goods_amount + $shipping_fee;
+        $surplus                      = min([$this->user->user_money, $total]);
+        $order_amount                 = $total - $surplus;
         $this->assign['goods_amount'] = $goods_amount;
         $this->assign['shipping_fee'] = 0;
+        $this->assign['total']        = $total;
+        $this->assign['surplus']      = $surplus;
+        $this->assign['order_amount'] = $order_amount;
         $this->assign['page_title']   = '结算-';
         $this->assign['result']       = $result;
         $this->assign['area_name']    = $area_name;
         $this->assign['address']      = $address;
+        $this->assign['payment']      = $payment;
         $this->assign['cartStep']     = "
         <li><img src='" . asset('images/cart_03.png') . "'/></li>
         <li><img src='" . asset('images/confirm2.png') . "'/></li>

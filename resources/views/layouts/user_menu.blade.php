@@ -3,7 +3,7 @@
         <h2><p>{{str_limit($user->user_name,18)}}</p></h2>
         <div class="profile">
             <a href="{{route('user.index')}}"><span class="head_pic"><img
-                            src="@if($user->ls_file!=''){{get_img_path('data/feedbackimg/'.$user->ls_file)}}@else{{path('images/member_20.png')}}@endif"
+                            src="@if($user->ls_file!=''){{path('upload/user/'.$user->ls_file)}}@else{{path('images/member_20.png')}}@endif"
                             alt="{{$user->user_name}}" title="{{$user->user_name}}"></span></a>
             <div style="line-height:24px;text-align:center;" class="fn_clear">
                 <div><span class="name" alt="{{$user->msn}}" title="{{$user->msn}}">{{str_limit($user->msn,18)}}</span>

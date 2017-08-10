@@ -1,4 +1,4 @@
-function delete_cz(obj) {
+function delete_cz(obj, jiedian) {
     var msg = $(obj).attr('title');
     var method = $(obj).attr('method');
     var url = $(obj).attr('url');
@@ -14,7 +14,11 @@ function delete_cz(obj) {
                     if ($('.id_check').length == 1) {
                         location.reload()
                     }
-                    $(obj).parents("tr").remove();
+                    if (typeof(jiedian) == "undefined") {
+                        $(obj).parents("tr").remove();
+                    } else {
+                        $(obj).parents(jiedian).remove();
+                    }
                 }
                 layer.msg(data.msg, {icon: parseInt(data.error) + 1, time: 1000});
             }

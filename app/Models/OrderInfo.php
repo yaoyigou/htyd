@@ -11,6 +11,7 @@ class OrderInfo extends Model
 
     protected $table = 'order_info';
     protected $primaryKey = 'order_id';
+    public $timestamps = false;
 
     public function order_goods()
     {
@@ -71,5 +72,10 @@ class OrderInfo extends Model
         return static::where('user_id', $user->user_id)->where('add_time', '>', strtotime('-1 month'))
             ->select('order_id', 'add_time', 'order_status', 'pay_status', 'shipping_status', 'order_sn', 'goods_amount', 'fhwl_m')
             ->orderBy('order_id', 'desc')->take($num)->get();
+    }
+
+    public function onlinePay()
+    {
+        return $this->hasOne(OnlinePay::class, 'order_id');
     }
 }

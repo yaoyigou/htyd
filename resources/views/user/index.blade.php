@@ -6,6 +6,7 @@
 <script type="text/javascript" src="{{path('js/slides.jquery.js')}}"></script>
 <script type="text/javascript" src="{{path('js/my_order.js')}}"></script>
 <script type="text/javascript" src="{{path('js/change_num.js')}}"></script>
+<script type="text/javascript" src="{{path('js/delete.js')}}"></script>
 
 <style>
     .main .main_left {
@@ -61,13 +62,15 @@
                 <li><span class="ico_com ico_3"></span>消费总金额<p>{{formated_price($pay_amount)}}</p></li>
                 <li class="end"><span class="ico_com ico_4"></span>待付款金额<p>{{formated_price($wait_amount)}}</p></li>
             </ul>
+            {{--<div class="infor">--}}
+            {{--<div class="title_name"><a class="hover_underline" href="{{route('youhuiq.index')}}"--}}
+            {{--style="font-size: 18px;color: #FF6102;">优惠券管理&nbsp;&gt;&gt;</a></div>--}}
+            {{--</div>--}}
             <div class="infor">
-                <div class="title_name"><a class="hover_underline" href="{{route('youhuiq.index')}}"
-                                           style="font-size: 18px;color: #FF6102;">优惠券管理&nbsp;&gt;&gt;</a></div>
-            </div>
-            <div class="infor">
-                <div class="title_name"><h4>会员信息</h4> <span class="name">{{$user->user_name}}</span> <span class="txt">(精品专区可兑换积分:{{$user->jp_points}}
-                        )</span> <span class="medal"></span></div>
+                <div class="title_name"><h4>会员信息</h4> <span class="name">{{$user->user_name}}</span>
+                    {{--<span class="txt">(精品专区可兑换积分:{{$user->jp_points}}--}}
+                    {{--)</span> --}}
+                    <span class="medal"></span></div>
                 <table>
                     @if($user->user_rank==2)
                         <tr class="first">
@@ -188,17 +191,18 @@
                         @foreach($collection as $v)
                             <tr>
                                 <td class="nub tb1_td1"><a
-                                            href="{{route('goods.show',['id'=>$v->goods_id])}}">{{str_limit($v->goods_name,14)}}</a>
+                                            href="{{route('goods.show',['id'=>$v->goods_id])}}">{{str_limit($v->goods->goods_name,14)}}</a>
                                 </td>
-                                <td class="date tb1_td2">{{str_limit($v->product_name,20)}}</td>
-                                <td class="date tb1_td4">{{str_limit($v->ypgg,20)}}</td>
-                                <td class="data tb1_td5">@if(1){{formated_price($v->real_price)}}@else
+                                <td class="date tb1_td2">{{str_limit($v->goods->product_name,20)}}</td>
+                                <td class="date tb1_td4">{{str_limit($v->goods->ypgg,20)}}</td>
+                                <td class="data tb1_td5">@if(1){{formated_price($v->goods->real_price)}}@else
                                         会员可见@endif</td>
                                 <td class="result tb1_td6">
-                                    <a class="goshopping" @if($v->is_can_see==1) onclick="tocart({{$v->goods_id}})"
+                                    <a class="goshopping" @if($v->goods->is_can_see==1) onclick="tocart({{$v->goods_id}})"
                                        @else onclick="tocart1()" @endif>加入购物车</a>
-                                    <a href="javascript:if (confirm('您确定要从收藏夹中删除选定的商品吗?')) location.href='{{route('collect_goods.destroy',['id'=>$v->rec_id])}}'"
-                                       class="f6">取消收藏</a>
+                                    <a onclick="delete_cz($(this))"
+                                       url="{{route('collect_goods.destroy',['id'=>$v->rec_id])}}" method="delete"
+                                       title="从收藏夹移除改商品" class="f6">取消收藏</a>
                                 </td>
                             </tr>
                         @endforeach
@@ -280,31 +284,18 @@
 
             </div>
         </div>
+        {{--<div class="content-right">--}}
 
-        {{--<div class="main_right">--}}
-        {{--<h4>公告</h4>--}}
         {{--<ul class="fn_clear">--}}
-        {{--@foreach($gg as $v)--}}
-        {{--<li><a href="{{route('articleInfo',['id'=>$v->article_id])}}" title="{{$v->title}}">--}}
-        {{--<span class="ico"></span>--}}
-        {{--<span class="text">{{$v->title}}</span>--}}
-        {{--<em>[{{date('m-d',$v->add_time)}}]</em>--}}
-        {{--</a></li>--}}
+        {{--@foreach(get_ads(156) as $v)--}}
+        {{--<li>--}}
+        {{--<a target="_blank" href="{{$v->ad_link}}">--}}
+        {{--<img src="{{$v->ad_code}}">--}}
+        {{--</a>--}}
+        {{--</li>--}}
         {{--@endforeach--}}
         {{--</ul>--}}
         {{--</div>--}}
-        <div class="content-right">
-
-            <ul class="fn_clear">
-                @foreach(get_ads(156) as $v)
-                    <li>
-                        <a target="_blank" href="{{$v->ad_link}}">
-                            <img src="{{$v->ad_code}}">
-                        </a>
-                    </li>
-                @endforeach
-            </ul>
-        </div>
     </div>
     @include('layouts.footer')
     @include('layouts.fix_search')

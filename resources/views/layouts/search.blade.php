@@ -17,10 +17,10 @@
                 </div>
             </div>
 
-            <a href="javascript:;">
+            <a href="{{route('cart.index')}}">
                 <div class="gouwuche" style="float: right;">
                     <img style="margin-top: -5px;" src="{{path('images/index/gouwuche.png')}}"/> 购物车
-                    <span style="color: red;">(0)</span>
+                    <span style="color: red;">({{cart_num()}})</span>
                 </div>
             </a>
 

@@ -16,6 +16,7 @@ class ArticleController extends Controller
     public function __construct(Article $model)
     {
         $this->set($model);
+        $this->assign['top_title'] = '帮助中心';
     }
 
     /**
@@ -26,18 +27,23 @@ class ArticleController extends Controller
     public function index(Request $request, ArticleCat $articleCat)
     {
         $cat_id = intval($request->input('cat_id'));
+        $type   = intval($request->input('type'));
         $request->offsetSet('cat_id', $cat_id);
         $query = $this->model->orderBy('add_time', 'desc');
         if ($cat_id > 0) {
             $query = $query->where('cat_id', $cat_id);
         }
-        $result                    = $query->Paginate($this->page_num_check());
-        $result                    = $this->add_params($result, $request->all());
-        $category                  = $articleCat->with('child')->get();
+        $result = $query->Paginate($this->page_num_check());
+        $result = $this->add_params($result, $request->all());
+        $query  = $articleCat->with('child', 'article');
+        if ($type > 0) {
+            $query->where('cat_type', $type);
+        }
+        $category                  = $query->get();
         $this->assign['result']    = $result;
         $this->assign['category']  = $category;
+        $this->assign['type']      = $type;
         $this->assign['inputs']    = $request->all();
-        $this->assign['top_title'] = '帮助中心';
         return view('article.index', $this->assign);
     }
 
@@ -68,11 +74,17 @@ class ArticleController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show(ArticleCat $articleCat, $id)
+    public function show(Request $request, ArticleCat $articleCat, $id)
     {
-        $info                     = $this->model->find($id);
-        $category                 = $articleCat->with('child')->get();
+        $info  = $this->model->find($id);
+        $type  = intval($request->input('type'));
+        $query = $articleCat->with('child', 'article');
+        if ($type > 0) {
+            $query->where('cat_type', $type);
+        }
+        $category                 = $query->get();
         $this->assign['info']     = $info;
+        $this->assign['type']     = $type;
         $this->assign['category'] = $category;
         return view('article.show', $this->assign);
     }

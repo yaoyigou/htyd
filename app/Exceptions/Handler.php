@@ -69,10 +69,11 @@ class Handler extends ExceptionHandler
 
     public function tips($request, TipsException $exception)
     {
-        $msg           = $exception->getMessage();
-        $params        = $exception->getParams();
-        $headers       = $exception->getHeaders();
-        $params['msg'] = $msg;
+        $msg            = $exception->getMessage();
+        $params         = $exception->getParams();
+        $headers        = $exception->getHeaders();
+        $params['msg']  = $msg;
+        $params['user'] = auth()->user();
         if ($request->expectsJson()) {
             return response()->json($params, 200, $headers);
         }
