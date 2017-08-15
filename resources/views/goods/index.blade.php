@@ -351,7 +351,7 @@
                             <div class="text">
                                 <p style="padding: 12px 0">抱歉！没有找到@if(!empty($keywords))与<span>“{{$keywords}}
                                         ”</span>@endif相关的药品</p>
-                                <p style="padding-bottom: 12px;">你可以发布求购意向，合纵医药网会尽快补货！</p>
+                                <p style="padding-bottom: 12px;">你可以发布求购意向，{{trans('common.web_name')}}会尽快补货！</p>
                                 <a target="_blank" href="/requirement">发布求购</a>
                             </div>
                         </div>

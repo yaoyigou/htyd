@@ -91,7 +91,7 @@ line-height: 28px;">温馨提示：</span>
             </div>
             <div class="back_a">
                 返回 <a href="{{route('index')}}" class="home" style="font-size: 16px;">首页</a> 或者返回 <a
-                        style="font-size: 16px;" href="{{route('user.index')}}">我的药易购</a>查看或跟踪订单
+                        style="font-size: 16px;" href="{{route('user.index')}}">会员中心</a>查看或跟踪订单
             </div>
         </div>
     </div>

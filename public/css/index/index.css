@@ -588,7 +588,7 @@
 /*li娴姩*/
 
 .xinpin ul li, .chanpintuijian ul li, .jiayongbaojian ul li, .zhongyao ul li {
-    width: 226px;
+    width: 289px;
     /*border: 1px solid #e5e5e5;*/
     overflow: hidden;
     height: 284px;
@@ -2062,7 +2062,6 @@
 
 .Allul {
     overflow: hidden;
-    width: 950px;
     /*border: 1px solid red;*/
     margin-top: -11px;
 }

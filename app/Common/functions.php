@@ -13,9 +13,10 @@ use Illuminate\Support\Facades\Cache;
 if (!function_exists('shop_config')) {
     function shop_config($code)
     {
-        return Cache::tags('shop_config')->rememberForever($code, function () use ($code) {
-            return ShopConfig::where('code', $code)->value('value');
-        });
+//        return Cache::tags('shop_config')->rememberForever($code, function () use ($code) {
+//            return ShopConfig::where('code', $code)->value('value');
+//        });
+        return trans('shop_config.' . $code);
     }
 }
 
@@ -281,11 +282,10 @@ if (!function_exists('order_status')) {
 if (!function_exists('get_region_list')) {
     function get_region_list($parent_id = 1)
     {
-        $region = Cache::rememberForever('region', function () {
-            return \App\Models\Region::all();
+        $region = Cache::tags('region')->rememberForever($parent_id, function () use ($parent_id) {
+            return \App\Models\Region::where('parent_id', $parent_id)->pluck('region_name', 'region_id');
         });
-        $result = $region->where('parent_id', $parent_id)->pluck('region_name', 'region_id');
-        return $result;
+        return $region;
     }
 }
 

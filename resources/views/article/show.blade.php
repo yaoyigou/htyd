@@ -22,7 +22,7 @@
             @include('layouts.articleTree')
         </div>
         <div class="main_right">
-            {!! $top_title or ''!!}
+            {!! $top or ''!!}
             <div class="content_box">
                 <div class="bdsharebuttonbox" style="display: inline;float: right;">
                     {{--<a href="#" class="bds_more" data-cmd="more"></a>--}}

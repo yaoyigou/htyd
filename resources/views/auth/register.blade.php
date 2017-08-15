@@ -23,7 +23,24 @@
 </script>
 @endpush
 @section('content')
-    @include('auth.header')
+    <div class="site-header">
+        <div class="header-box">
+            <div class="logo">
+                <a href="{{route('index')}}"><img src="{{path('images/login_logo.png')}}"/></a>
+
+            </div>
+            <p class="dl">会员注册</p>
+            <p class="right">
+                <a href="{{route('index')}}">返回首页</a>
+                @if(isset($type)&&$type==1)
+                    <a href="{{route('article.index',['type'=>2])}}">查看新闻中心</a>
+                @else
+                    <a href="{{route('article.index',['type'=>1])}}">查看帮助中心</a>
+                @endif
+            </p>
+        </div>
+
+    </div>
     <div class="site-content">
 
         <div class="content-container clear_float">
@@ -261,7 +278,7 @@
 
                     <a href="http://www.hezongyy.com/auth/login" class="want_login after_clear">我已有账号，我要登录</a>&nbsp;&nbsp;
 
-                    <a href="http://www.hezongyy.com/password/email" style="margin-left: 87px;">您忘记密码了吗？</a>
+                    {{--<a href="http://www.hezongyy.com/password/email" style="margin-left: 87px;">您忘记密码了吗？</a>--}}
 
                 </p>
             @endcomponent

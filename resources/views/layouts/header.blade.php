@@ -30,7 +30,7 @@
                             {{--src="http://www.hezongyy.com/new/images/gerentouxiang.png?20170502"/></a>--}}
                             {{--</div>--}}
                             {{--<div class="weizhi" style="color: #767676;">--}}
-                            {{--<a style="margin-left:15px;" href="/user">药易购测试罗悦1</a>--}}
+                            {{--<a style="margin-left:15px;" href="/user">罗悦1</a>--}}
                             {{--</div>--}}
                             {{--<div class="mingzi">--}}
                             {{--<a href="#" style="color:#999999;margin-left:15px;">药店</a>--}}
@@ -51,7 +51,7 @@
                         </div>
                     @else
                         <div class="login_before">
-                            <span style="float: left;color: #333;">您好，欢迎来到合纵医药网！</span>
+                            <span style="float: left;color: #333;">您好，欢迎来到{{trans('common.web_name')}}！</span>
                             <div class="login_before1">
                                 <a href="/login">
                                     <div class="loginbtn">登录</div>
@@ -72,7 +72,7 @@
                     </a>
                 </li>
                 <li class="my_jianke" style="padding-left: 10px;float: left;">
-                    <a target="_blank" href="{{route('article.index')}}">帮助中心</a>
+                    <a target="_blank" href="{{route('article.index',['type'=>1])}}">帮助中心</a>
                 </li>
 
             </ul>

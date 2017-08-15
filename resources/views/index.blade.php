@@ -46,7 +46,7 @@
             <div class="banner-pic">
                 @foreach($ad121 as $k=>$ad)
                     <ul>
-                        <li style="background:#{{$ad->ad_bgc}}; @if($k==0) display:list-item; @endif">
+                        <li style="background:#ffffff; @if($k==0) display:list-item; @endif">
                             <a onClick="_hmt.push(['_trackEvent','首页焦点图1','浏览','{{str_replace('2017','',$ad->ad_name)}}'])"
                                href="{{$ad->ad_link}}" title="" target="_blank" style="position:relative;">
                                 <img data-src="{{$ad->ad_code}}"
@@ -87,31 +87,37 @@
                 <div class="wrapper1">
                     <div id="focus1" class="focus">
                         <ul style="height: 400px;">
-                            @foreach($ad126 as $v)
-                                <li>
-                                    <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
-                                                                                   src="{{$v->ad_code}}"/></a>
-                                </li>
+                            @foreach($ad126 as $k=>$v)
+                                @if($k<2)
+                                    <li>
+                                        <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
+                                                                                       src="{{$v->ad_code}}"/></a>
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>
                     <div class="img_box">
                         <ul>
-                            @foreach($ad126 as $v)
-                                <li>
-                                    <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
-                                                                                   src="{{$v->ad_code}}"/></a>
-                                </li>
+                            @foreach($ad161 as $k=>$v)
+                                @if($k<2)
+                                    <li>
+                                        <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
+                                                                                       src="{{$v->ad_code}}"/></a>
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>
                 </div>
 
                 <ul class="Allul">
-                    @foreach($ad127 as $v)
-                        <li>
-                            <a target="_blank" href="{{$v->ad_link}}"><img class="ad" src="{{$v->ad_code}}"/></a>
-                        </li>
+                    @foreach($ad127 as $k=>$v)
+                        @if($k<6)
+                            <li>
+                                <a target="_blank" href="{{$v->ad_link}}"><img class="ad" src="{{$v->ad_code}}"/></a>
+                            </li>
+                        @endif
                     @endforeach
                 </ul>
                 @if(count($ad128)>0)
@@ -136,31 +142,37 @@
                 <div class="wrapper1">
                     <div id="focus2" class="focus">
                         <ul style="height: 400px;">
-                            @foreach($ad129 as $v)
-                                <li>
-                                    <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
-                                                                                   src="{{$v->ad_code}}"/></a>
-                                </li>
+                            @foreach($ad129 as $k=>$v)
+                                @if($k<2)
+                                    <li>
+                                        <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
+                                                                                       src="{{$v->ad_code}}"/></a>
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>
                     <div class="img_box">
                         <ul>
-                            @foreach($ad129 as $v)
-                                <li>
-                                    <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
-                                                                                   src="{{$v->ad_code}}"/></a>
-                                </li>
+                            @foreach($ad162 as $k=>$v)
+                                @if($k<2)
+                                    <li>
+                                        <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
+                                                                                       src="{{$v->ad_code}}"/></a>
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>
                 </div>
 
                 <ul class="Allul">
-                    @foreach($ad130 as $v)
-                        <li>
-                            <a target="_blank" href="{{$v->ad_link}}"><img class="ad" src="{{$v->ad_code}}"/></a>
-                        </li>
+                    @foreach($ad130 as $k=>$v)
+                        @if($k<6)
+                            <li>
+                                <a target="_blank" href="{{$v->ad_link}}"><img class="ad" src="{{$v->ad_code}}"/></a>
+                            </li>
+                        @endif
                     @endforeach
                 </ul>
                 @if(count($ad131)>0)
@@ -185,17 +197,19 @@
                 <div class="wrapper1">
                     <div id="focus3" class="focus">
                         <ul style="height: 400px;">
-                            @foreach($ad133 as $v)
-                                <li>
-                                    <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
-                                                                                   src="{{$v->ad_code}}"/></a>
-                                </li>
+                            @foreach($ad133 as $k=>$v)
+                                @if($k<2)
+                                    <li>
+                                        <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
+                                                                                       src="{{$v->ad_code}}"/></a>
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>
                     <div class="img_box">
                         <ul>
-                            @foreach($ad133 as $v)
+                            @foreach($ad163 as $v)
                                 <li>
                                     <a target="_blank" href="{{$v->ad_link}}"><img class="ad"
                                                                                    src="{{$v->ad_code}}"/></a>
@@ -206,10 +220,12 @@
                 </div>
 
                 <ul class="Allul">
-                    @foreach($ad134 as $v)
-                        <li>
-                            <a target="_blank" href="{{$v->ad_link}}"><img class="ad" src="{{$v->ad_code}}"/></a>
-                        </li>
+                    @foreach($ad134 as $k=>$v)
+                        @if($k<6)
+                            <li>
+                                <a target="_blank" href="{{$v->ad_link}}"><img class="ad" src="{{$v->ad_code}}"/></a>
+                            </li>
+                        @endif
                     @endforeach
                 </ul>
                 @if(count($ad135)>0)

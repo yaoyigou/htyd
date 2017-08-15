@@ -1,4 +1,4 @@
-<div class="top"><span class="title">我的药易购</span> <a>>　<span>{{$title1}}</span> </a> <a href="{{$title2}}" class="end">>　<span>{{$title3}}</span></a>
+<div class="top"><span class="title">{{trans('common.user_center')}}</span> <a>>　<span>{{$title1}}</span> </a> <a href="{{$title2}}" class="end">>　<span>{{$title3}}</span></a>
 </div>
 <div class="main_right1">
     <div class="top_title">

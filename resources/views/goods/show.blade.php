@@ -212,7 +212,7 @@
                                 <span class="ico"></span> 加入购物车</a>
                         @endif
                         <div class="add_weixin">
-                            <img src="../images/detail_09.png" alt=""/>
+                            <img src="{{path('images/detail_09.png')}}" alt=""/>
                             <p class="saosao">扫一扫</p>
                             <p>进入官方微信</p>
                         </div>
@@ -230,7 +230,7 @@
 
                 </div>
                 <div class="right">
-                    <img src="../images/detail66.png" alt=""/>
+                    <img src="{{path('images/detail66.png')}}" alt=""/>
                 </div>
             </form>
         </div>

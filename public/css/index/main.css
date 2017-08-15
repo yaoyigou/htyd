@@ -75,7 +75,7 @@
 /*绲拷锟戒笀锟斤拷鑾夛拷锟斤拷*/
 .wrapper1{
     float: left;
-    width: 250px;
+    width: 300px;
     height: 579px;
     overflow: hidden;
     /*border: 1px solid red;*/
@@ -89,7 +89,7 @@
 
 /* focus */
 .focus {
-    width: 250px;
+    width: 300px;
     height: 485px;
     overflow: hidden;
     position: relative;
@@ -104,7 +104,7 @@
 
 .focus ul li {
     float: left;
-    width: 250px;
+    width: 300px;
     height: 485px;
     overflow: hidden;
     position: relative;
@@ -153,7 +153,7 @@
 .focus1 .btn,.focus .btn {
     position: absolute;
     display: inline-block;
-    left: 34%;
+    left: 39.3%;
     height: 25px;
     bottom: 15px;
     margin: 0 auto;
@@ -274,7 +274,7 @@
     margin-left: 40px;
 }
 .wrapper1 .img_box ul li{
-	width: 105px;
+	width: 130px;
 	height: 75px;
 	float: left;
 	margin: 10px 0 0 13px;
