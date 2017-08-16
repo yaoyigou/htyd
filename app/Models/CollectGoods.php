@@ -17,6 +17,8 @@ class CollectGoods extends Model
 
     protected $dateFormat = 'U';
 
+    protected $fillable = ['user_id','goods_id'];
+
     public function goods()
     {
         return $this->hasOne(Goods::class, 'goods_id', 'goods_id');

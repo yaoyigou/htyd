@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Common\Page;
 use App\Models\Cart;
+use App\Models\CollectGoods;
 use App\Models\Goods;
 use App\Models\Payment;
 use App\Models\Shipping;
@@ -340,6 +341,17 @@ class CartController extends Controller
         $act = trim($request->input('act', ''));
         switch ($act) {
             case 'plsc':
+                break;
+            case 'to_collect':
+                $info = $this->model->where('user_id', $this->user->user_id)->find($id);
+                if (!$info) {
+                    tips('没有权限这样做', 1);
+                }
+                DB::transaction(function () use ($info) {
+                    $info->delete();
+                    $collect = CollectGoods::firstOrCreate(['user_id' => $this->user->user_id, 'goods_id' => $info->goods_id]);
+                });
+                tips('加入收藏夹成功');
                 break;
             default:
                 $info = $this->model->where('user_id', $this->user->user_id)->find($id);

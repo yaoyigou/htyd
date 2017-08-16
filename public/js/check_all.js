@@ -1,13 +1,19 @@
 /**
  * Created by Administrator on 2017-08-07.
  */
-function check_all(obj) {
+function check_all(obj, fun) {
     $('.id_check').prop("checked", obj.prop('checked'));
     $('.check_all').prop("checked", obj.prop('checked'));
+    if (typeof(fun) == 'function') {
+        fun();
+    }
 }
-function is_check(obj, id) {
+function is_check(obj, id, fun) {
     var subBox = $("." + obj);
     $("." + id).prop("checked", subBox.length == $("." + obj + ":checked").length ? true : false);
+    if (typeof(fun) == 'function') {
+        fun();
+    }
 }
 function plgm() {
     var ids = '';

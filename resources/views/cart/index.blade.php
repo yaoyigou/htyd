@@ -2,8 +2,9 @@
 @push('header')
 <link href="{{path('css/index/index.css')}}" rel="stylesheet" type="text/css"/>
 <link href="{{path('css/cart.css')}}" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="{{path('js/delete.js')}}"></script>
+<script type="text/javascript" src="{{path('js/check_all.js')}}"></script>
 <script type="text/javascript" src="{{path('js/flow_cart.js')}}"></script>
+<script type="text/javascript" src="{{path('js/delete.js')}}"></script>
 <script type="text/javascript" src="{{path('js/slides.jquery.js')}}"></script>
 <style>
     .min, .add {
@@ -253,7 +254,8 @@
             <div class="gwc">
                 <table cellpadding="0" cellspacing="0" class="gwc_tb1">
                     <tr>
-                        <td class="tb1_td1"><input id="Checkbox1" type="checkbox" class="allselect"/></td>
+                        <td class="tb1_td1"><input id="" type="checkbox" class="allselect check_all"
+                                                   onclick="check_all($(this),GetCount)"/></td>
                         <td class="tb1_td2">全选</td>
                         <td class="tb1_td3">标识</td>
                         <td class="tb1_td4">商品名称</td>
@@ -271,7 +273,9 @@
                 <table cellpadding="0" cellspacing="0" class="gwc_tb2">
                     @foreach($result as $v)
                         <tr data-id="{{$v->rec_id}}" class="info-box xuanzhongzt">
-                            <td class="tb2_td1"><input type="checkbox" value="1" name="newslist" id="newslist-0"
+                            <td class="tb2_td1"><input onclick="is_check('id_check','check_all',GetCount)"
+                                                       class="id_check"
+                                                       type="checkbox" value="1" name="newslist" id=""
                                                        @if($v->is_checked==1)checked="checked" @else disabled="disabled"
                                                        @endif is_checked="{{$v->is_checked}}"></td>
                             <td class="tb2_td2" style="color: rgb(243, 16, 16);">
@@ -327,10 +331,12 @@
                             <td class="tb2_td11"
                                 id="subtotal_{{$v->rec_id}}">{{formated_price($v->goods_number*$v->goods->real_price)}}</td>
                             <td class="tb2_td12">
-                                <p><a onclick="delete_cz($(this))" title="从购物车删除该商品" method="delete"
+                                <p><a onclick="delete_cz($(this),'tr',GetCount)" title="从购物车删除该商品" method="delete"
                                       url="{{route('cart.destroy',['id'=>$v->rec_id])}}" class="del">删除</a></p>
                                 @if(Auth::check())
-                                    <p><a class="collect">移到收藏</a></p>
+                                    <p><a class="collect" title="移动到收藏后将从购物车删除" method="delete"
+                                          url="{{route('cart.destroy',['id'=>$v->rec_id,'act'=>'to_collect'])}}"
+                                          onclick="delete_cz($(this),'tr',GetCount)">移到收藏</a></p>
                                 @endif
 
                             </td>
@@ -384,7 +390,8 @@
                 <table cellpadding="0" cellspacing="0" class="gwc_tb3">
                     <tr>
                         <td class="tb3_td1" style="width:160px;">
-                            <p><span class="select"><input id="Checkbox2" type="checkbox" class="allselect"
+                            <p><span class="select"><input onclick="check_all($(this),GetCount)" id="" type="checkbox"
+                                                           class="allselect check_all"
                                                            checked="checked">全选</span></p>
                             <p style="margin-top:5px;*margin-top:15px;"><a href="javascript:void(0);"
                                                                            id="del_checked"><span
@@ -397,9 +404,10 @@
                         </td>
                         <td></td>
                         <td class="tb3_td2">已选商品 <label id="shuliang">0</label> 件</td>
-                        <td class="tb3_td3">精品专区合计:<span style=" color:#f31010;"></span><span
-                                    style=" color:#f31010;"><label id="zong2"
-                                                                   style="color:#f31010;font-size:22px;">{{formated_price($total['jp_total_amount'])}}</label></span>
+                        <td class="tb3_td3">
+                            {{--精品专区合计:<span style=" color:#f31010;"></span><span--}}
+                            {{--style=" color:#f31010;"><label id="zong2"--}}
+                            {{--style="color:#f31010;font-size:22px;">{{formated_price($total['jp_total_amount'])}}</label></span>--}}
                         </td>
                         <td class="tb3_td4">合计(不含运费):<span style=" color:#f31010;"></span><span style=" color:#f31010;"><label
                                         id="zong1"
